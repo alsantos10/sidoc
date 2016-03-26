@@ -11,10 +11,12 @@ public class ConnectionFactory {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver()); //Essa linha foi a diferenca
 			//return DriverManager.getConnection("jdbc:mysql://mysql.hostinger.com.br/u619621041_sidoc", "u619621041_sidoc","adc123");
 			//return DriverManager.getConnection("jdbc:mysql://sql5.freesqldatabase.com/sql5112157", "sql5112157","iq1eFQQ1sA");
-			return DriverManager.getConnection("jdbc:mysql://localhost/sidoc", "root","");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+			return DriverManager.getConnection("jdbc:mysql://localhost/sidoc", "root","adc123");
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}catch (Exception e){
+            throw new RuntimeException(e);
+        }
 	}
 }

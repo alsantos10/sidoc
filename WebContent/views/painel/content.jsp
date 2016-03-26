@@ -22,12 +22,7 @@
 				</h3>
 				<hr>
 				
-				<c:if test="${not empty mensagem}">
-					<div class="alert alert-info">
-						<button type="button" class="close" data-dismiss="alert">×</button>
-						${mensagem}
-					</div>
-				</c:if>
+				<c:import url="../main/messages.jsp" />
 
 				<!-- opção 1 -->
 				<c:if test="${usuario_usuariotipo !=  'funcionario' }">

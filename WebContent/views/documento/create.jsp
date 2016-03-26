@@ -40,11 +40,7 @@
 					</h1>
 				</header>
 
-				<c:if test="${not empty mensagem}">
-					<div class="alert alert-success" role="alert">
-						<span>${mensagem}</span>
-					</div>
-				</c:if>
+				<c:import url="../main/messages.jsp" />
 
 				<div class="row">
 					<div class="col-sm-12">

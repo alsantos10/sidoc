@@ -34,11 +34,7 @@
 					<h1 class="page-title">Tela de ${titulo}</h1>
 				</header>
 
-				<c:if test="${not empty mensagem}">
-					<div class="alert alert-success" role="alert">
-						<span>${mensagem}</span>
-					</div>
-				</c:if>
+				<c:import url="../main/messages.jsp" />
 
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">

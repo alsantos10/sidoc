@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import br.com.sidoc.conexao.ConnectionFactory;
 import br.com.sidoc.model.Cargo;
 import br.com.sidoc.model.Contato;
@@ -443,7 +445,9 @@ public class UsuarioDAO {
 		}
 		catch (SQLException e) {
 			throw new RuntimeException(e);
-		}	
+		}catch (NullPointerException e){
+			throw new RuntimeException(e);
+		}
 	}
 	
 	public void remove(Usuario usuario){

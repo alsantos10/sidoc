@@ -33,6 +33,8 @@
 				<header class="page-header">
 					<h1 class="page-title">Entre em Contato</h1>
 				</header>
+				
+				<c:import url="../main/messages.jsp" />
 
 				<p>Caso você tenha dúvidas, sugestões ou precise de ajuda para
 					utilizar o sistema SIDOC, preencha este formulário que em breve
