@@ -38,11 +38,14 @@ public class PainelController implements Logica {
 						Validation.minMaxCaracters(senha,5,12)){
 					userValido =  this.autenticarUsuario(usuario, senha);
 				}
+				
 				if(userValido!=null){
 					sessao = req.getSession();
 					sessao.setAttribute("usuario_id", userValido.getId());
 					sessao.setAttribute("usuario_logged", userValido.getLogin());
 					sessao.setAttribute("usuario_usuariotipo", userValido.getUsuarioTipo());
+					sessao.setAttribute("usuario_departamento", userValido.getDepartamento());
+					sessao.setAttribute("usuario_gerente", userValido.getGerente());
 					req.getSession().setAttribute("mensagem","");
 					req.getSession().setAttribute("usuarioLogado",userValido);
 					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
@@ -72,6 +75,7 @@ public class PainelController implements Logica {
 					sessao.removeAttribute("usuario_logged");  
 					sessao.removeAttribute("usuario_nome");  
 					sessao.removeAttribute("usuario_usuariotipo");  
+					sessao.removeAttribute("usuario_departamento_id");  
 					req.getSession().setAttribute("usuarioLogado","");
 					req.getSession().setAttribute("usuario", "");
 					req.getSession().setAttribute("senha", "");

@@ -54,6 +54,7 @@
 
 							<jsp:useBean id="dao" class="br.com.sidoc.DAO.DocumentoDAO">
 								<c:forEach var="doc" items="${dao.lista}">
+									<c:if test="${usuario_usuariotipo !=  'funcionario' && usuario_id == doc.usuario.id}">
 									<tr class="text text-${doc.ativo=='s'?'default':'danger'}">
 										<td>${doc.titulo}</td>
 										<td>${doc.usuario.login}</td>
@@ -72,6 +73,7 @@
 											href="${linkExcluir}" class="btnExcluir text text-danger"><i
 												class="fa fa-minus-square-o fa-lg "></i></a></td>
 									</tr>
+									</c:if>
 								</c:forEach>
 							</jsp:useBean>
 

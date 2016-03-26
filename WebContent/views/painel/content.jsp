@@ -21,7 +21,7 @@
 					<i class="fa fa-cogs"></i> Painel de Controle
 				</h3>
 				<hr>
-
+				
 				<c:if test="${not empty mensagem}">
 					<div class="alert alert-info">
 						<button type="button" class="close" data-dismiss="alert">×</button>
@@ -30,6 +30,7 @@
 				</c:if>
 
 				<!-- opção 1 -->
+				<c:if test="${usuario_usuariotipo !=  'funcionario' }">
 				<div class="col-sm-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -46,6 +47,7 @@
 					</div>
 					<!--/panel-->
 				</div>
+				</c:if>
 
 				<!-- opção 2 -->
 				<div class="col-sm-4">
@@ -56,7 +58,7 @@
 									<i class="fa fa-paste fa-5"></i>
 								</h4>
 							</div>
-							<p>Gerencie os usuários que têm acesso ao sistema.</p>
+							<p>Gerencie os Documentos do sistema.</p>
 							<a href="${menuDoc}" title="Documentos"
 								class="btn btn-success btn-block">Documentos</a>
 						</div>
@@ -74,7 +76,7 @@
 									<i class="fa fa-save fa-5"></i>
 								</h4>
 							</div>
-							<p>Gerencie os usuários que têm acesso ao sistema.</p>
+							<p>Gerencie os Arquivos de documentos.</p>
 							<a href="${menuArq}" title="Arquivos"
 								class="btn btn-success btn-block">Arquivos</a>
 						</div>
@@ -84,6 +86,7 @@
 				</div>
 
 				<!-- opção 4 -->
+				<c:if test="${usuario_usuariotipo !=  'funcionario' }">
 				<div class="col-sm-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -92,7 +95,7 @@
 									<i class="fa fa-building-o fa-5"></i>
 								</h4>
 							</div>
-							<p>Gerencie os usuários que têm acesso ao sistema.</p>
+							<p>Gerencie os cargos dos empregados cadastrados.</p>
 							<a href="${menuCargo}" title="Cargos"
 								class="btn btn-success btn-block">Cargos</a>
 						</div>
@@ -100,6 +103,8 @@
 					</div>
 					<!--/panel-->
 				</div>
+				</c:if>
+
 
 				<!-- opção 5 -->
 				<div class="col-sm-4">
@@ -110,7 +115,7 @@
 									<i class="fa fa-bars fa-5"></i>
 								</h4>
 							</div>
-							<p>Gerencie os usuários que têm acesso ao sistema.</p>
+							<p>Gerencie as Categorias de documentos.</p>
 							<a href="${menuCateg}" title="Categorias"
 								class="btn btn-success btn-block">Categorias</a>
 						</div>
@@ -120,6 +125,7 @@
 				</div>
 
 				<!-- opção 6 -->
+				<c:if test="${usuario_usuariotipo !=  'funcionario' }">
 				<div class="col-sm-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -128,7 +134,7 @@
 									<i class="fa fa-sitemap fa-5"></i>
 								</h4>
 							</div>
-							<p>Gerencie os usuários que têm acesso ao sistema.</p>
+							<p>Gerencie os Departamentos dos empregados que têm acesso ao sistema.</p>
 							<a href="${menuDep}" title="Departamentos"
 								class="btn btn-success btn-block">Departamentos</a>
 						</div>
@@ -136,8 +142,10 @@
 					</div>
 					<!--/panel-->
 				</div>
+				</c:if>
 
 				<!-- opção 7 -->
+				<c:if test="${usuario_usuariotipo !=  'funcionario' }">
 				<div class="col-sm-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -146,7 +154,7 @@
 									<i class="fa fa-list-alt fa-5"></i>
 								</h4>
 							</div>
-							<p>Gerencie os usuários que têm acesso ao sistema.</p>
+							<p>Visualise os Relatórios do sistema.</p>
 							<a href="${menuRel}" title="Relatórios"
 								class="btn btn-action btn-block">Relatórios</a>
 						</div>
@@ -154,6 +162,7 @@
 					</div>
 					<!--/panel-->
 				</div>
+				</c:if>
 
 			</div>
 		</div>
@@ -161,7 +170,7 @@
 
 
 
-
+		<c:if test="${usuario_usuariotipo !=  'funcionario' }">
 		<div class="row">
 			<div class="col-sm-12">
 				<!-- column 2 -->
@@ -308,6 +317,7 @@
 				<!--  ./tabs -->
 			</div>
 		</div>
+		</c:if>
 	</div>
 </div>
 <!-- /Highlights -->

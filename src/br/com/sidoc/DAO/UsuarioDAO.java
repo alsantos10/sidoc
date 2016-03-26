@@ -380,7 +380,7 @@ public class UsuarioDAO {
 		if(login == null || login == "" || senha == null || senha == ""){
 			return null;
 		}
-		String sql = "SELECT a.id, a.login, a.senha, a.nome, a.sobrenome,usuario_tipo, "
+		String sql = "SELECT a.id, a.login, a.senha, a.nome, a.sobrenome,usuario_tipo, a.id_departamento, a.id_gerente,"
 				+ "a.ativo, c.id AS idC, c.email FROM "+ table +" AS a "
 				+ "LEFT JOIN contatos AS c ON a.id_contato = c.id "
 				+ "WHERE a.login = ? AND a.senha = ? AND ativo = 's'";
@@ -399,6 +399,9 @@ public class UsuarioDAO {
 				usuario.setUsuarioTipo(rs.getString("usuario_tipo"));
 				usuario.setAtivo(rs.getString("ativo"));
 				usuario.setEmail(rs.getString("email"));
+				DepartamentoDAO daoD = new DepartamentoDAO();
+				usuario.setDepartamento(daoD.retornaDepartamento(rs.getLong("id_departamento")));
+				usuario.setGerente(this.retGerente(rs.getLong("id_gerente")));
 				rs.close();
 				stmt.close();
 			}
