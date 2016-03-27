@@ -53,24 +53,35 @@
 
 							<jsp:useBean id="dao" class="br.com.sidoc.DAO.ArquivoDAO">
 								<c:forEach var="file" items="${dao.lista}">
-									<tr>
-										<td><img alt="${file.titulo}"
-											src="${dir_images}${file.arquivo}"
-											style="max-width: 100px; max-height: 60px; text-align: center;" />
-										</td>
-										<td>${file.titulo}</td>
-										<td>${file.documento.titulo}</td>
-										<td><fmt:formatDate value="${file.dtCadastro.time}"
-												pattern="dd/MM/yyyy" /></td>
-										<td><c:url
-												value="/sistema?c=Arquivo&acao=exibir&id=${file.id}"
-												var="linkAlterar" /> <c:url
-												value="/sistema?c=Arquivo&acao=excluir&id=${file.id}"
-												var="linkExcluir" /> <a href="${linkAlterar}"><i
-												class="fa fa-pencil-square-o fa-lg"></i></a> <a
-											href="${linkExcluir}"><i
-												class="fa fa-minus-square-o fa-lg "></i></a></td>
-									</tr>
+								    <c:if test="${usuario_usuariotipo ==  'funcionario' && usuario_id == file.usuario.id}">
+								        <tr>
+	                                        <td><img alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+	                                        </td>
+	                                        <td>${file.titulo}</td>
+	                                        <td>${file.documento.titulo}</td>
+	                                        <td><fmt:formatDate value="${file.dtCadastro.time}" pattern="dd/MM/yyyy" /></td>
+	                                        <td><c:url value="/sistema?c=Arquivo&acao=exibir&id=${file.id}" var="linkAlterar" /> 
+                                                <c:url value="/sistema?c=Arquivo&acao=excluir&id=${file.id}" var="linkExcluir" /> 
+                                                <a href="${linkAlterar}"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a
+	                                            href="${linkExcluir}"><i class="fa fa-minus-square-o fa-lg "></i></a></td>
+	                                    </tr>								    
+								    </c:if>
+								
+								    <c:if test="${usuario_usuariotipo == 'gerente' && departamento.id == file.usuario.departamento.id}">
+								        <tr>
+	                                        <td><img alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+	                                        </td>
+	                                        <td>${file.titulo}</td>
+	                                        <td>${file.documento.titulo}</td>
+	                                        <td><fmt:formatDate value="${file.dtCadastro.time}" pattern="dd/MM/yyyy" /></td>
+	                                        <td><c:url
+	                                                value="/sistema?c=Arquivo&acao=exibir&id=${file.id}"
+	                                                var="linkAlterar" /> <c:url value="/sistema?c=Arquivo&acao=excluir&id=${file.id}"
+	                                                var="linkExcluir" /> <a href="${linkAlterar}"><i class="fa fa-pencil-square-o fa-lg"></i></a> 
+	                                                <a href="${linkExcluir}"><i class="fa fa-minus-square-o fa-lg "></i></a></td>
+	                                    </tr>
+								    </c:if>
+								    
 								</c:forEach>
 							</jsp:useBean>
 

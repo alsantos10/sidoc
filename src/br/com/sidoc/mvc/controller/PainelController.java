@@ -10,11 +10,12 @@ import javax.servlet.http.HttpSession;
 import br.com.sidoc.DAO.UsuarioDAO;
 import br.com.sidoc.Rules.Validation;
 import br.com.sidoc.model.Usuario;
+import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 
 public class PainelController implements Logica {
-	String mensagem;
+	Message mensagem = new Message();
 	String usuario;
 	String senha;
 	static HttpSession sessao = null;
@@ -24,7 +25,6 @@ public class PainelController implements Logica {
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
-		mensagem = null;
 		
 		String acao = req.getParameter("acao");
 		// Fazer validação dos dados de entrada
@@ -46,13 +46,19 @@ public class PainelController implements Logica {
 					sessao.setAttribute("usuario_usuariotipo", userValido.getUsuarioTipo());
 					sessao.setAttribute("usuario_departamento", userValido.getDepartamento());
 					sessao.setAttribute("usuario_gerente", userValido.getGerente());
-					req.getSession().setAttribute("mensagem","");
+					
+					mensagem.setMessage("Usu�rio autenticado com sucesso");
+					req.setAttribute("mensagem", mensagem.getMessage());
+					
 					req.getSession().setAttribute("usuarioLogado",userValido);
 					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 				}else{
 					req.getSession().setAttribute("usuario",usuario);
 					req.getSession().setAttribute("senha", senha);
-					req.getSession().setAttribute("mensagem","Usuario inexistente ou inativo. Contate o administrador");
+
+					mensagem.setMessage("Usuario inexistente ou inativo. Contate o administrador");
+					req.setAttribute("mensagem", mensagem.getMessage());
+					
 					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 				}
 			}
@@ -61,9 +67,9 @@ public class PainelController implements Logica {
 				if(sessao==null){
 					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=contato");
 				}else{
-					req.getSession().setAttribute("mensagem",null);
 					req.setAttribute("link_acao", "sistema?c=Home&acao=enviar");
-					req.setAttribute("mensagem", mensagem);
+					mensagem.setMessage("Contato inserido com sucesso");
+					req.setAttribute("mensagem", mensagem.getMessage());
 					RequestDispatcher rd = req.getRequestDispatcher("/views/home/contato.jsp");
 					rd.forward(req, res);
 				}
@@ -82,21 +88,22 @@ public class PainelController implements Logica {
 					sessao.invalidate();  
 					sessao =null;
 				}
-				mensagem = "Logout realizado com sucesso.";
-				req.getSession().setAttribute("mensagem",mensagem);
+				mensagem.setMessage( "Logout realizado com sucesso.");
+				req.setAttribute("mensagem", mensagem.getMessage());				
 				res.sendRedirect(Utils.getBaseUrl(req));				
 			}
 			else{
-				mensagem = "Ação inválida.";
+				mensagem.setMessage("Ação inválida.");
+				req.setAttribute("mensagem", mensagem.getMessage());
 			}
 		}else{
 			if(sessao != null && PainelController.isLogado()){
-				req.setAttribute("mensagem", mensagem);
+				req.setAttribute("mensagem", null);
 				RequestDispatcher rd = req.getRequestDispatcher("/views/painel/index.jsp");
 				rd.forward(req, res);
 			}else{
-				mensagem = "Acesso restrito.";
-				req.getSession().setAttribute("mensagem",mensagem);
+				mensagem.setMessage("Acesso restrito");
+				req.setAttribute("mensagem", mensagem.getMessage());
 				res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 			}
 		}

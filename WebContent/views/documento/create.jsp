@@ -71,26 +71,29 @@
 									</c:if>
 									<div class="col-sm-${doc.dtCadastro.time!=null?'3':'6'}">
 										<cF:campoDataDoc id="dt_validade" valor="val"
-											rotulo="Data de Validade" type="text" classe="form-control"
-											outro="required='true'" />
+											rotulo="Data de Validade" type="text" classe="form-control" outro="required='true'" />
 									</div>
-									<div class="col-sm-6">
-										<cF:cSelectUsu id="id_usuario" valor="${doc.usuario.id}"
-											rotulo="Responsável" classe="form-control" outro="required" />
-									</div>
-								</div>
-
-								<div class="row">
 									<div class="col-sm-6">
 										<cF:cSelectCat id="id_categoria" valor="${doc.categoria.id}"
 											rotulo="Categoria" classe="form-control" outro="required" />
 									</div>
-									<div class="col-sm-6">
-										<cF:cSelectDepto id="id_departamento"
-											valor="${doc.departamento.id}" rotulo="Departamento"
-											classe="form-control" outro="required" />
-									</div>
 								</div>
+                                
+                                
+								<c:if test="${usuario_usuariotipo == 'funcionario'}">
+									<cF:cFormHidden id="id_usuario" valor="${usuario_id}" type="hidden" />
+									<cF:cFormHidden id="id_departamento" valor="${usuario_departamento.id}" type="hidden" />
+								</c:if>
+								<c:if test="${usuario_usuariotipo != 'funcionario'}">
+									<div class="row">
+									    <div class="col-sm-6">
+	                                        <cF:cSelectUsu id="id_usuario" valor="${doc.usuario.id}" rotulo="Responsável" classe="form-control" outro="required" />
+									    </div>
+									    <div class="col-sm-6">
+										   <cF:cSelectDepto id="id_departamento" valor="${doc.departamento.id}" rotulo="Departamento" classe="form-control" outro="required" />
+										</div>
+									</div>
+								</c:if>
 
 								<div class="row">
 									<div class="col-sm-12">

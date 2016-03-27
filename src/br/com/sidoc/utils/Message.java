@@ -10,7 +10,16 @@ public class Message {
 		this.style   = style;
 		this.status  = true;
 	}
-
+	public Message(String style) {
+		this.message = "";
+		this.style   = style;
+		this.status  = true;
+	}
+	public Message() {
+		this.message = "";
+		this.style   = "success";
+		this.status  = true;
+	}
 	public String getStyle() {
 		return style;
 	}
@@ -19,6 +28,9 @@ public class Message {
 			this.style = style;
 		}
 		this.style = "success";
+	}
+	public void setMessage(String msg) {
+		this.message = msg;
 	}
 	public Boolean getStatus() {
 		return status;

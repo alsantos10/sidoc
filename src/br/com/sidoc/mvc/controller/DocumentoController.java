@@ -13,10 +13,11 @@ import br.com.sidoc.DAO.DepartamentoDAO;
 import br.com.sidoc.DAO.DocumentoDAO;
 import br.com.sidoc.DAO.UsuarioDAO;
 import br.com.sidoc.model.Documento;
+import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 public class DocumentoController implements Logica {
-	String mensagem;
+	Message mensagem = new Message();
 	public String id = null;
 	public String titulo = null;
 	public String refDocFisico = null;
@@ -33,10 +34,11 @@ public class DocumentoController implements Logica {
 			throws Exception {
 		
 		if(PainelController.sessao!=null && PainelController.isLogado() == false){
-			mensagem = "Acesso restrito.";
+			mensagem.setMessage("Acesso restrito.");
+			mensagem.setStyle("danger");
+			req.setAttribute("mensagem", mensagem.getMessage());
 			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}else{
-			mensagem = null;
 			String acao = req.getParameter("acao");
 			req.setAttribute("link_acao", "sistema?c=Documento&acao=inserir");
 			
@@ -55,7 +57,6 @@ public class DocumentoController implements Logica {
 				if(req.getParameter("id_departamento")!=null) idDepartamento  =  req.getParameter("id_departamento");
 				if(req.getParameter("id_usuario")!=null) idUsuario  = req.getParameter("id_usuario");
 							
-				System.out.println("Veio aqui " + titulo );
 				System.out.println("Data Val: "+dtValidade);
 				
 				Documento doc = new Documento();
@@ -84,9 +85,6 @@ public class DocumentoController implements Logica {
 					System.out.println("Data formatada: "+sdf.parse(dtValidade)); 
 					System.out.println("Data convertida: "+calendar1.getTime()); 
 					System.out.println("Data convertida: "+doc.getDtValidade().toString()); 
-					
-					
-					
 				}	
 				
 				System.out.println("Data Val: "+doc.getDtValidade());
@@ -121,8 +119,9 @@ public class DocumentoController implements Logica {
 					
 					if(id==null || id=="") id = String.valueOf(docNovo.getId()); 
 					req.setAttribute("doc", docNovo);
-					mensagem = "Documento salvo com sucesso.";
-				    req.setAttribute("mensagem", mensagem);
+					
+					mensagem.setMessage("Documento salvo com sucesso.");
+					req.setAttribute("mensagem", mensagem.getMessage());
 				    req.setAttribute("link_acao", "sistema?c=Documento&acao=gravar&id="+id);
 					RequestDispatcher rd = req.getRequestDispatcher("/views/documento/create.jsp");
 					rd.forward(req, res);
@@ -131,15 +130,17 @@ public class DocumentoController implements Logica {
 				
 				else if(acao.equals("excluir"))
 				{
-					mensagem = "Documento n√£o foi encontrado.";
+					mensagem.setMessage("Documento n„o foi encontrado.");
+					mensagem.setStyle("danger");
 					doc.setId(Long.parseLong(id));
 					Documento docNovo = dao.retornaDocumento(doc.getId());
 					System.out.println("ID: " + docNovo.getId());
 					if(docNovo.getId()>0 ){
 						dao.remove(docNovo);
-						mensagem = "Documento exclu√≠do com sucesso.";
+						mensagem.setMessage("Documento excuido com sucesso.");
+						mensagem.setStyle("success");
 					}
-					req.setAttribute("mensagem", mensagem);
+					req.setAttribute("mensagem", mensagem.getMessage());
 					RequestDispatcher rd = req.getRequestDispatcher("/views/documento/index.jsp");
 					rd.forward(req, res);	
 				}
@@ -149,18 +150,18 @@ public class DocumentoController implements Logica {
 				{
 					Documento docNovo = dao.retornaDocumento(Long.parseLong(id));
 					if(docNovo != null){
-						System.out.println("ID Documento: " + id);
 						req.setAttribute("doc", docNovo);
 						req.setAttribute("link_acao", "sistema?c=Documento&acao=gravar&id="+docNovo.getId());	    
-						req.setAttribute("mensagem", mensagem);
+						req.setAttribute("mensagem", null);
 						RequestDispatcher rd = req.getRequestDispatcher("/views/documento/create.jsp");
 						rd.forward(req, res);
 					}
 				}
 				else
 				{
-					mensagem = "A√ß√£o inv√°lida.";
-					req.setAttribute("mensagem", mensagem);
+					mensagem.setMessage("AÁ„o invalida.");
+					mensagem.setStyle("danger");
+					req.setAttribute("mensagem", mensagem.getMessage());
 					RequestDispatcher rd = req.getRequestDispatcher("/views/documento/index.jsp");
 					rd.forward(req, res);
 				}
@@ -169,7 +170,7 @@ public class DocumentoController implements Logica {
 			}
 			else
 			{
-			    req.setAttribute("mensagem", mensagem);
+			    req.setAttribute("mensagem", null);
 				RequestDispatcher rd = req.getRequestDispatcher("/views/documento/index.jsp");
 				rd.forward(req, res);
 			}

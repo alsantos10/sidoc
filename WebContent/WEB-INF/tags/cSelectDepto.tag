@@ -8,15 +8,15 @@
 
 <div class="form-group ${colSize}">
 	<label class="control-label">${rotulo}: </label>
-		<select id="${id}" <c:if test="${usuario_usuariotipo == 'funcionario'}"> disabled="disabledd </c:if>
+		<select id="${id}" <c:if test="${usuario_usuariotipo == 'funcionario'}"> disabled="disabled" </c:if>
 		name="${id}" class="${classe}" ${outro}>
 		<option value="">Selecione...</option>
 
-		<c:when test="${usuario_usuariotipo == 'funcionario'}">
+		<c:if test="${usuario_usuariotipo == 'funcionario'}">
 			<option value="${usuario_departamento.id}" selected="selected">${usuario_departamento.departamento}</option>
-		</c:when>
+		</c:if>
 		
-		<c:otherwise>
+		<c:if test="${usuario_usuariotipo != 'funcionario'}">
 			<jsp:useBean id="dao" class="br.com.sidoc.DAO.DepartamentoDAO">
 				<c:forEach var="opcao" items="${dao.lista}" varStatus="id">
 					<c:choose>
@@ -29,6 +29,6 @@
 					</c:choose>
 				</c:forEach>
 			</jsp:useBean>
-		</c:otherwise>
+		</c:if>
 	</select>
 </div>

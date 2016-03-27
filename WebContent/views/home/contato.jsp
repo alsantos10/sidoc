@@ -52,7 +52,7 @@
 
 						</div>
 						<div class="col-sm-4">
-							<cF:cSelectDepto id="id_departamento" valor="${departamento}"
+							<cF:cSelectDeptoOff id="id_departamento" valor="${departamento}"
 								rotulo="Departamento" classe="form-control" outro="required" />
 						</div>
 					</div>

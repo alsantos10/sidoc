@@ -9,10 +9,8 @@ import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 
-public class HomeController implements Logica {
+public class ContatoController implements Logica {
 	Message mensagem = new Message();
-	String usuario;
-	String senha;
 	static HttpSession sessao;
 	
 	@Override
@@ -21,23 +19,22 @@ public class HomeController implements Logica {
 	
 		String acao = req.getParameter("acao");
 		if(acao!= null){
-			if(acao.equals("login")){
-				if(sessao !=null && PainelController.isLogado()){
-					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
-				}else{
-					req.setAttribute("link_acao", "sistema?c=Painel&acao=login");					
-					req.setAttribute("mensagem", null);
-					RequestDispatcher rd = req.getRequestDispatcher("/views/home/login.jsp");
-					rd.forward(req, res);
-				}
-			}else{
-				mensagem.setMessage("Ação inválida.");
+			if(acao.equals("enviar")){
+				// Enviar contato
+				mensagem.setMessage("Mensagem enviada com sucesso");
 				req.setAttribute("mensagem", mensagem.getMessage());
 				res.sendRedirect(Utils.getBaseUrl(req));
 			}
-		}else{
-			req.getSession().setAttribute("mensagem",null);
-			res.sendRedirect(Utils.getBaseUrl(req));
+			else{
+				mensagem.setMessage("Acao invalida.");
+				req.setAttribute("mensagem", mensagem.getMessage());
+				//res.sendRedirect(Utils.getBaseUrl(req));
+			}
 		}
+		System.out.println("Veio aqui");
+		req.setAttribute("link_acao", "sistema?c=Contato&acao=enviar");
+		RequestDispatcher rd = req.getRequestDispatcher("/views/home/contato.jsp");
+		rd.forward(req, res);
+		
 	}
 }

@@ -34,7 +34,7 @@
 
 				<c:import url="../main/messages.jsp" />
 
-				<div class="row">
+               <div class="row">
 					<div class="col-md-12">
 						<form action="${linkNovo}" method="post"
 							enctype="multipart/form-data">
@@ -51,14 +51,18 @@
 								</div>
 
 								<cF:cFormBasic id="titulo" valor="${file.titulo}"
-									rotulo="Título do arquivo" type="text" classe="form-control"
-									outro="required" />
-								<cF:cSelectUsu id="id_usuario" valor="${func.usuario.id}"
-									rotulo="Funcionário Responsável" classe="form-control"
-									outro="required" />
-								<cF:cSelectDoc id="id_documento" valor="${func.documento.id}"
-									rotulo="Documento pertencente" classe="form-control"
-									outro="required" />
+									rotulo="Título do arquivo" type="text" classe="form-control" outro="required" />
+								
+								<c:if test="${usuario_usuariotipo == 'funcionario'}">
+                                    <cF:cFormHidden id="id_usuario" valor="${usuario_id}" type="hidden" />
+                                </c:if>
+                                <c:if test="${usuario_usuariotipo != 'funcionario'}">
+									<cF:cSelectUsu id="id_usuario" valor="${file.usuario.id}"
+										rotulo="Funcionário Responsável" classe="form-control" outro="required" />
+								</c:if>
+									
+								<cF:cSelectDoc id="id_documento" valor="${file.documento.id}"
+									rotulo="Documento pertencente" classe="form-control" outro="required" />
 
 								<c:if test="${empty file.arquivo}">
 									<div class="form-group">

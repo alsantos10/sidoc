@@ -167,14 +167,14 @@ public class ArquivoDAO {
 				file.setDtCadastro(dt);
 				
 				Documento doc 	= this.retDocumento(rs.getLong("id_documento"));
-				Usuario usuario 	= this.retUsuario(rs.getLong("id_usuario"));
+				Usuario usuario = this.retUsuario(rs.getLong("id_usuario"));
 				
 				file.setDocumento(doc);
 				file.setUsuario(usuario);
 				rs.close();
 				stmt.close();
 			}
-			System.out.println("Arquivo :"+file.getTitulo());
+			System.out.println("Arquivo :"+file.getUsuario().getId());
 			return file; 
 		}
 		catch (NullPointerException eNull){

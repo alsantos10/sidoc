@@ -18,14 +18,15 @@ import br.com.sidoc.DAO.UsuarioDAO;
 import br.com.sidoc.model.Arquivo;
 import br.com.sidoc.model.Documento;
 import br.com.sidoc.model.Usuario;
+import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 @MultipartConfig
 public class ArquivoController implements Logica {
-	private static final String PATH_DIR = "C:/Users/Vilma/Documents/Andre/sidoc/WebContent/";
+	private static final String PATH_DIR = "C:/Users/Andre/Documents/Projetos_git/sidoc/WebContent/";
 	private static final String UPLOAD_DIR = PATH_DIR + "assets/uploads/";
 
-	String mensagem;
+	Message mensagem = new Message();
 	public String id = null;
 	public String titulo = null;
 	public String dtCadastro = null;
@@ -39,10 +40,11 @@ public class ArquivoController implements Logica {
 		
 		
 		if(PainelController.sessao!=null && PainelController.isLogado() == false){
-			mensagem = "Acesso restrito.";
+			mensagem.setMessage("Acesso restrito.");
+			mensagem.setStyle("danger");
+			
 			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}else{
-			mensagem = null;
 			String acao = req.getParameter("acao");
 			req.setAttribute("link_acao", "sistema?c=Arquivo&acao=inserir");
 			
@@ -57,20 +59,23 @@ public class ArquivoController implements Logica {
 				
 				if(acao.equals("inserir"))
 				{
-					req.getSession().setAttribute("mensagem","");
+					req.getSession().setAttribute("mensagem",null);
 					req.setAttribute("link_acao", "sistema?c=Arquivo&acao=upload");
 					RequestDispatcher rd = req.getRequestDispatcher("/views/arquivo/upload.jsp");
 					rd.forward(req, res);
 				}
 				else if(acao.equals("exibir"))
 				{
-					req.getSession().setAttribute("mensagem","");
+					req.getSession().setAttribute("mensagem",null);
 					if(id==null){
-						mensagem = "Nenhum arquivo selecionado";
-						req.getSession().setAttribute("mensagem",mensagem);
+						mensagem.setMessage("Nenhum arquivo selecionado");
+						mensagem.setStyle("danger");
+						req.getSession().setAttribute("mensagem",mensagem.getMessage());
 						res.sendRedirect("sistema?c=Arquivo");
 					}else if(dao.retornaArquivo( Long.parseLong(id)) == null){
-						req.getSession().setAttribute("mensagem","Arquivo nÃ£o foi encontrado");
+						mensagem.setMessage("Arquivo nao foi encontrado");
+						mensagem.setStyle("danger");
+						req.getSession().setAttribute("mensagem",mensagem.getMessage());
 						res.sendRedirect("sistema?c=Arquivo");
 					}else{
 						Arquivo fileNew = dao.retornaArquivo( Long.parseLong(id));
@@ -82,7 +87,7 @@ public class ArquivoController implements Logica {
 				}
 				else if(acao.equals("upload"))
 				{
-					req.getSession().setAttribute("mensagem","");
+					req.getSession().setAttribute("mensagem",null);
 					if(req.getParameter("titulo")!=null) titulo =  req.getParameter("titulo");
 						
 					// Create path components to save the file
@@ -96,7 +101,8 @@ public class ArquivoController implements Logica {
 				    try {
 				    	File novoArquivo = new File(UPLOAD_DIR + fileNameNew);
 				    	if(novoArquivo.isFile()){
-				    		mensagem = "Upload cancelado. Arquivo existente: "+ fileNameNew;
+				    		mensagem.setMessage("Upload cancelado. Arquivo existente: "+ fileNameNew);
+							mensagem.setStyle("info");
 				    	}
 				    	else
 				    	{
@@ -116,8 +122,7 @@ public class ArquivoController implements Logica {
 					        if(req.getParameter("id_documento")!=null){
 					        	idDocumento  = req.getParameter("id_documento");
 					        	if(idDocumento.length()>0){
-					        		System.out.println("idDocumento: " + idDocumento);
-							        DocumentoDAO docDAO = new DocumentoDAO();
+					        		DocumentoDAO docDAO = new DocumentoDAO();
 					            	Documento doc = docDAO.retornaDocumento(Long.parseLong(idDocumento));
 							        if(doc != null){arquivo.setDocumento(doc); }
 								}
@@ -133,13 +138,13 @@ public class ArquivoController implements Logica {
 							}
 							Long idNovo = gravarArquivo(arquivo);
 							if(idNovo > 0){
-								Arquivo arquivoNew = dao.retornaArquivo(idNovo);
-								mensagem = "Upload realizado com sucesso. Arquivo: "+ arquivoNew.getTitulo();
+								Arquivo arquivoNew = dao.retornaArquivo(idNovo);								
+								mensagem.setMessage("Upload realizado com sucesso. Arquivo: "+ arquivoNew.getTitulo());
+								mensagem.setStyle("success");
 							}
 				    	}
-						req.setAttribute("link_acao", "/sistema?c=Arquivo&acao=inserir");
-					    
-						req.getSession().setAttribute("mensagem",mensagem);
+						req.setAttribute("link_acao", "/sistema?c=Arquivo&acao=inserir");					    
+						req.getSession().setAttribute("mensagem",mensagem.getMessage());
 						res.sendRedirect("sistema?c=Arquivo");
 				       
 			    	} 
@@ -161,7 +166,7 @@ public class ArquivoController implements Logica {
 				}
 				else if(acao.equals("excluir"))
 				{
-					req.getSession().setAttribute("mensagem","");
+					req.getSession().setAttribute("mensagem",null);
 					if(id!=null){
 						Arquivo arquivo = dao.retornaArquivo(Long.parseLong(id));
 						String fileNameNew = arquivo.getArquivo();
@@ -169,19 +174,21 @@ public class ArquivoController implements Logica {
 						try {
 							this.removerArquivo(nomeArquivo);
 							dao.remove(arquivo);
-							mensagem = "Arquivo "+arquivo.getTitulo()+" excluido com sucesso.";
+							mensagem.setMessage("Arquivo "+arquivo.getTitulo()+" excluido com sucesso.");
+							mensagem.setStyle("success");
 						} catch (Exception e) {
 							System.out.println("Erro ao excluir arquivo " + e.getMessage());
 						}
 					}
-					mensagem = "Nenhum arquivo selecionado";
-					req.getSession().setAttribute("mensagem",mensagem);
+					mensagem.setMessage("Nenhum arquivo selecionado");
+					mensagem.setStyle("danger");
+					req.getSession().setAttribute("mensagem",mensagem.getMessage());
 					res.sendRedirect("sistema?c=Arquivo");
 					
 				}
 				else if(acao.equals("editar"))
 				{
-					req.getSession().setAttribute("mensagem","");
+					req.getSession().setAttribute("mensagem",null);
 					if(id!=null){
 						if(req.getParameter("titulo")!=null) titulo =  req.getParameter("titulo");
 						Arquivo arquivo = dao.retornaArquivo(Long.parseLong(id));
@@ -190,8 +197,7 @@ public class ArquivoController implements Logica {
 			    		    if(req.getParameter("id_documento")!=null){
 					        	idDocumento  = req.getParameter("id_documento");
 					        	if(idDocumento.length()>0){
-						        	 System.out.println("idDocumento: " + idDocumento);
-							        DocumentoDAO docDAO = new DocumentoDAO();
+						        	DocumentoDAO docDAO = new DocumentoDAO();
 					            	Documento doc = docDAO.retornaDocumento(Long.parseLong(idDocumento));
 							        if(doc != null){arquivo.setDocumento(doc); }
 								}
@@ -208,33 +214,34 @@ public class ArquivoController implements Logica {
 							Long idNovo = gravarArquivo(arquivo);
 							if(idNovo > 0){
 								Arquivo arquivoNew = dao.retornaArquivo(idNovo);
-								mensagem = "AlteraÃ§Ã£o no arquivo "+ arquivoNew.getTitulo()+" realizada com sucesso";
+								mensagem.setMessage("Alteração no arquivo "+ arquivoNew.getTitulo()+" realizada com sucesso");
+								mensagem.setStyle("success");
 							}
 					       
 				    	}catch (Exception e) {
 							System.out.println("Error: " +e.getMessage());
 						}
 					}else{
-						mensagem = "Nenhum arquivo selecionado";
+						mensagem.setMessage("Nenhum arquivo selecionado");
+						mensagem.setStyle("info");
 					}
 	
 					req.setAttribute("link_acao", "/sistema?c=Arquivo&acao=inserir");
-				    req.getSession().setAttribute("mensagem",mensagem);
+				    req.getSession().setAttribute("mensagem",mensagem.getMessage());
 					res.sendRedirect("sistema?c=Arquivo");
 				    
 				}else{
 					req.setAttribute("link_acao", "/sistema?c=Arquivo&acao=inserir");
-				    req.setAttribute("mensagem", mensagem);
+				    req.setAttribute("mensagem", mensagem.getMessage());
 					RequestDispatcher rd = req.getRequestDispatcher("/views/arquivo/index.jsp");
 					rd.forward(req, res);
 				}
 			}
 			else
 			{
-				//Caso acao is null
-				
+				//Caso acao is null				
 				req.setAttribute("link_acao", "/sistema?c=Arquivo&acao=inserir");
-			    req.setAttribute("mensagem", mensagem);
+			    req.setAttribute("mensagem", null);
 				RequestDispatcher rd = req.getRequestDispatcher("/views/arquivo/index.jsp");
 				rd.forward(req, res);
 			}

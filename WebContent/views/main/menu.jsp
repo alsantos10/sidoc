@@ -32,12 +32,8 @@
 					<li class="active"><a href="${urlHome}sistema?c=Painel">Painel
 							de Controle</a></li>
 				</c:if>
-				<c:if test="${not empty usuarioLogado}">
-					<li><a href="${urlHome}sistema?c=Painel&acao=contato">Contato</a></li>
-				</c:if>
-				<c:if test="${empty usuarioLogado}">
-					<li><a href="${urlHome}sistema?c=Home&acao=contato">Contato</a></li>
-				</c:if>
+				<li><a href="${urlHome}sistema?c=Contato">Contato</a></li>
+				
 				<c:if test="${not empty usuarioLogado}">
 					<c:url
 						value="/sistema?c=Funcionario&acao=editar&id=${usuarioLogado.id}"

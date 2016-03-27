@@ -41,7 +41,7 @@
 					<div class="widget-body">
 						<p class="simplenav">
 							<a href="${urlHome}">Home</a> | <a
-								href="${urlHome}sistema?c=Home&acao=contato">Contato</a>
+								href="${urlHome}sistema?c=Contato">Contato</a>
 						</p>
 					</div>
 				</div>
