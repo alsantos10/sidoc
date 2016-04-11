@@ -102,6 +102,7 @@
 
 
 				<!-- opção 5 -->
+				<c:if test="${usuario_usuariotipo !=  'funcionario' }">
 				<div class="col-sm-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -118,6 +119,7 @@
 					</div>
 					<!--/panel-->
 				</div>
+				</c:if>
 
 				<!-- opção 6 -->
 				<c:if test="${usuario_usuariotipo !=  'funcionario' }">

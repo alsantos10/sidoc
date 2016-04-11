@@ -16,10 +16,7 @@ public class EnderecoController implements Logica {
 			throws Exception {
 		mensagem = null;
 		
-		if(PainelController.sessao!=null && PainelController.isLogado() == false){
-			mensagem = "Acesso restrito.";
-			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
-		}else{
+		if(PainelController.sessao!=null && PainelController.isLogado() == true){
 			String acao = req.getParameter("acao");
 			String logr = req.getParameter("logradouro");
 			String id = req.getParameter("id");
@@ -67,6 +64,9 @@ public class EnderecoController implements Logica {
 			req.setAttribute("mensagem", mensagem);
 			RequestDispatcher rd = req.getRequestDispatcher("/views/endereco/index.jsp");
 			rd.forward(req, res);
+		}else{
+			mensagem = "Acesso restrito.";
+			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}
 	}
 }

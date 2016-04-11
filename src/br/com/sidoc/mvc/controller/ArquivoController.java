@@ -39,12 +39,7 @@ public class ArquivoController implements Logica {
 			throws Exception {
 		
 		
-		if(PainelController.sessao!=null && PainelController.isLogado() == false){
-			mensagem.setMessage("Acesso restrito.");
-			mensagem.setStyle("danger");
-			
-			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
-		}else{
+		if(PainelController.sessao!=null && PainelController.isLogado() == true){
 			String acao = req.getParameter("acao");
 			req.setAttribute("link_acao", "sistema?c=Arquivo&acao=inserir");
 			
@@ -245,6 +240,10 @@ public class ArquivoController implements Logica {
 				RequestDispatcher rd = req.getRequestDispatcher("/views/arquivo/index.jsp");
 				rd.forward(req, res);
 			}
+		}else{
+			mensagem.setMessage("Acesso restrito.");
+			mensagem.setStyle("danger");
+			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}
 	}
 

@@ -73,7 +73,7 @@
 
 								<div class="form-group">
 									<input class="btn btn-primary" type="submit" value="Enviar" />
-									<a href="${urlHome}sistema?c=Arquivo" class="btn btn-default">Limpar</a>
+									<a href="${urlHome}sistema?c=Arquivo" class="btn btn-default">Voltar</a>
 								</div>
 							</fieldset>
 

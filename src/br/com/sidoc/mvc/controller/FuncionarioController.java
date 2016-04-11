@@ -10,10 +10,11 @@ import br.com.sidoc.DAO.UsuarioDAO;
 import br.com.sidoc.model.Contato;
 import br.com.sidoc.model.Endereco;
 import br.com.sidoc.model.Usuario;
+import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 public class FuncionarioController implements Logica {
-	String mensagem;
+	Message mensagem = new Message();
 	public String id = null;
 	public String nome = null;
 	public String sobrenome = null;
@@ -45,19 +46,18 @@ public class FuncionarioController implements Logica {
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
-		mensagem = null;
 		String acao = req.getParameter("acao");
-		
-		if(PainelController.sessao!=null && PainelController.isLogado()){
-			// Está logado
+		mensagem.setMessage("");
+		if(PainelController.sessao!=null && PainelController.isLogado() == true){
+			// Esta logado
 			if(!PainelController.isLogadoAdmin() && !PainelController.isLogadoGerente()){
-				mensagem = "Acesso restrito.";
-				req.getSession().setAttribute("mensagem", mensagem);
+				mensagem.setMessage("Acesso restrito");
+				req.setAttribute("mensagem", mensagem.getMessage());
 				res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 			}
 			else
 			{
-				// É administrador ou Gerente
+				// administrador ou gerente
 
 				req.setAttribute("link_acao", "sistema?c=Funcionario&acao=inserir");
 				
@@ -142,7 +142,7 @@ public class FuncionarioController implements Logica {
 					func.setContato(contato);
 					func.setEndereco(end);
 				
-				// Fazer validação dos dados de entrada
+				// Fazer validaÃ§Ã£o dos dados de entrada
 					
 					if(acao.equals("inserir"))
 					{
@@ -162,8 +162,9 @@ public class FuncionarioController implements Logica {
 							rd.forward(req, res);
 						}else{
 							System.out.println("Id Logado False " +  id);
-							mensagem = "Ação inválida.";
-							req.getSession().setAttribute("mensagem",mensagem);
+							mensagem.setMessage("Ação inválida.");
+							mensagem.setStyle("danger");
+							req.setAttribute("mensagem", mensagem.getMessage());
 							res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 						}
 					} 
@@ -176,8 +177,9 @@ public class FuncionarioController implements Logica {
 							if(id!=null && id!=""){
 								func.setId(Long.parseLong(id));
 								if((PainelController.isLogadoGerente() && !PainelController.isLogadoMesmoDepartamento(id))){
-									mensagem = "Ação inválida.";
-									req.getSession().setAttribute("mensagem",mensagem);
+									mensagem.setMessage("Ação inválida.");
+									mensagem.setStyle("danger");
+									req.setAttribute("mensagem", mensagem.getMessage());
 									res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 								}
 							}			
@@ -186,14 +188,15 @@ public class FuncionarioController implements Logica {
 							
 							if(id==null || id=="") id = String.valueOf(funcNovo.getId()); 
 							req.setAttribute("func", funcNovo);
-							mensagem = "Funcionario salvo com sucesso.";
-						    req.setAttribute("mensagem", mensagem);
+							mensagem.setMessage("Funcionário salvo com sucesso");
+							req.setAttribute("mensagem", mensagem.getMessage());
 						    req.setAttribute("link_acao", "sistema?c=Funcionario&acao=gravar&id="+id);
 							RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/create.jsp");
 							rd.forward(req, res);
 						}else{
-							mensagem = "Ação inválida.";
-							req.getSession().setAttribute("mensagem",mensagem);
+							mensagem.setMessage("Ação inválida.");
+							mensagem.setStyle("danger");
+							req.setAttribute("mensagem", mensagem.getMessage());
 							res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 						}
 					}
@@ -212,20 +215,23 @@ public class FuncionarioController implements Logica {
 								if(funcBD.getSenha().equals(Utils.md5(senhaAtual))){
 									func.setSenha(Utils.md5(senhaNova));
 									dao.alterarSenha(func);
-									mensagem = "Senha alterada com sucesso.";
+									mensagem.setMessage("Senha alterada com sucesso.");
 								}else{
-									mensagem = "Erro ao alterar a senha.";
+									mensagem.setMessage("Erro ao alterar a senha.");
+									mensagem.setStyle("danger");
 								}
 							}else{
-								mensagem = "Nova senha incorreta.";
+								mensagem.setMessage("Nova senha incorreta.");
+								mensagem.setStyle("danger");
 							}
-						    req.setAttribute("mensagem", mensagem);
+							req.setAttribute("mensagem", mensagem.getMessage());
 						    req.setAttribute("link_acao", "sistema?c=Funcionario&acao=gravarSenha&id="+id);
 							RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/alterar-senha.jsp");
 							rd.forward(req, res);
 						}else{
-							mensagem = "Ação inválida.";
-							req.getSession().setAttribute("mensagem",mensagem);
+							mensagem.setMessage("Ação inválida.");
+							mensagem.setStyle("danger");
+							req.setAttribute("mensagem", mensagem.getMessage());
 							res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 						}
 					}
@@ -235,20 +241,24 @@ public class FuncionarioController implements Logica {
 					{
 						if(!PainelController.isLogadoAlterar(id) || (PainelController.isLogadoGerente()
 								&& PainelController.isLogadoMesmoDepartamento(id))){
-							mensagem = "Funcionario não foi encontrado.";
+							mensagem.setMessage("Usuário não foi encontrado.");
+							mensagem.setStyle("danger");
+							
 							func.setId(Long.parseLong(id));
 							Usuario funcNovo = dao.retornaUsuario(func.getId());
 							System.out.println("ID: " + funcNovo.getId());
 							if(funcNovo.getId()>0 ){
 								dao.remove(funcNovo);
-								mensagem = "Funcionario excluído com sucesso.";
+								mensagem.setMessage("Usuário excluído com sucesso.");
+								mensagem.setStyle("success");
 							}
 						}else{
-							mensagem = "Ação inválida.";
-							req.getSession().setAttribute("mensagem",mensagem);
+							mensagem.setMessage("Ação inválida.");
+							mensagem.setStyle("danger");
+							req.setAttribute("mensagem", mensagem.getMessage());
 							res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 						}
-						req.setAttribute("mensagem", mensagem);
+						req.setAttribute("mensagem", mensagem.getMessage());
 						RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/index.jsp");
 						rd.forward(req, res);
 							
@@ -265,13 +275,14 @@ public class FuncionarioController implements Logica {
 								System.out.println("ID Usuario: " + id);
 								req.setAttribute("func", user);
 								req.setAttribute("link_acao", "sistema?c=Funcionario&acao=gravar&id="+user.getId());	    
-								req.setAttribute("mensagem", mensagem);
+								req.setAttribute("mensagem", "");
 								RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/create.jsp");
 								rd.forward(req, res);
 							}
 						}else{
-							mensagem = "Ação inválida.";
-							req.getSession().setAttribute("mensagem",mensagem);
+							mensagem.setMessage("Ação inválida.");
+							mensagem.setStyle("danger");
+							req.setAttribute("mensagem", mensagem.getMessage());
 							res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 						}
 					}
@@ -279,7 +290,7 @@ public class FuncionarioController implements Logica {
 				else
 				{
 					//Acao is null
-					req.setAttribute("mensagem", mensagem);
+					req.setAttribute("mensagem", mensagem.getMessage());
 					RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/index.jsp");
 					rd.forward(req, res);
 				}
@@ -288,10 +299,10 @@ public class FuncionarioController implements Logica {
 		// Restricoes
 		else
 		{
-			System.out.println("Aqui6");
-			mensagem = "Acesso restrito.";
+			mensagem.setMessage("Ação inválida.");
+			mensagem.setStyle("danger");
+			req.setAttribute("mensagem", mensagem.getMessage());
 			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
-			System.out.println("Aqui7");
 		}
 	}
 }

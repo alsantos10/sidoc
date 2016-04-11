@@ -6,20 +6,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.sidoc.DAO.CategoriaDAO;
 import br.com.sidoc.model.Categoria;
+import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 public class CategoriaController implements Logica {
-	String mensagem;
+	Message mensagem = new Message();
 	
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
-		mensagem = null;
-		
-		if(PainelController.sessao!=null && PainelController.isLogado() == false){
-			mensagem = "Acesso restrito.";
-			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
-		}else{
+		if(PainelController.sessao!=null && PainelController.isLogado() == true){
 			String acao = req.getParameter("acao");
 			String categ = req.getParameter("categoria");
 			String id = req.getParameter("id");
@@ -37,11 +33,11 @@ public class CategoriaController implements Logica {
 			if(acao!= null){
 				if(acao.equals("inserir")){
 					dao.salva(ctg);
-					mensagem = "Categoria inserida com sucesso.";
+					mensagem.setMessage("Categoria inserida com sucesso.");
 				}
 				else if(acao.equals("editar")){
 					dao.salva(ctg);
-					mensagem = "Categoria alterada com sucesso.";
+					mensagem.setMessage("Categoria alterada com sucesso.");
 					Categoria categoria = dao.retornaCategoria(ctg.getId());
 					if(categoria != null){
 						req.setAttribute("categ", categoria);
@@ -50,7 +46,7 @@ public class CategoriaController implements Logica {
 				}
 				else if(acao.equals("excluir")){
 					dao.remove(ctg);
-					mensagem = "Categoria excluída com sucesso.";
+					mensagem.setMessage("Categoria excuida com sucesso.");
 				}
 				else if(acao.equals("exibir")){
 					Categoria categoria = dao.retornaCategoria(ctg.getId());
@@ -60,13 +56,19 @@ public class CategoriaController implements Logica {
 					}
 				}
 				else{
-					mensagem = "Ação inválida.";
+					mensagem.setMessage("A��o invalida.");
+					mensagem.setStyle("danger");
 				}
 			}
 			    
-			req.setAttribute("mensagem", mensagem);
+			req.setAttribute("mensagem", mensagem.getMessage());
 			RequestDispatcher rd = req.getRequestDispatcher("/views/categoria/index.jsp");
 			rd.forward(req, res);
+		}else{
+			mensagem.setMessage("Acesso restrito.");
+			mensagem.setStyle("danger");
+			req.setAttribute("mensagem", mensagem.getMessage());
+			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}
 	}
 }

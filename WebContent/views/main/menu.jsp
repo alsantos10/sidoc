@@ -43,14 +43,18 @@
 						var="menuSenha" />
 					<li class="dropdown"><a href="#" class="btn dropdown-toggle"
 						data-toggle="dropdown">Ferramentas <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="${menuDep}">Departamentos</a></li>
-							<li class="active"><a href="${menuCateg}">Categorias</a></li>
-							<li><a href="${menuCargo}">Cargos</a></li>
-							<li><a href="${menuFunc}">Funcionários</a></li>
-							<li><a href="${menuDoc}">Documentos</a></li>
-							<li><a href="${menuArq}">Arquivos</a></li>
-							<li><a href="${menuRel}">Relatórios</a></li>
+						<ul class="dropdown-menu">		
+    						<c:if test="${usuario_usuariotipo != 'funcionario'}">				
+								<li><a href="${menuDep}">Departamentos</a></li>
+								<li><a href="${menuCateg}">Categorias</a></li>
+								<li><a href="${menuCargo}">Cargos</a></li>
+								<li><a href="${menuFunc}">Funcionários</a></li>     
+							</c:if>							                      
+                            <li><a href="${menuDoc}">Documentos</a></li>
+                            <li><a href="${menuArq}">Arquivos</a></li>                         
+                            <c:if test="${usuario_usuariotipo != 'funcionario'}">
+							     <li><a href="${menuRel}">Relatórios</a></li>
+							</c:if>
 							<li><a href="${menuDados}">Meus Dados</a></li>
 							<li><a href="${menuSenha}">Alterar Senha</a></li>
 							<li><a href="${menuSair}">Sair</a></li>

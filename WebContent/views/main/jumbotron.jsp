@@ -25,9 +25,9 @@
 							</div>
 							<p>Gerencie os usuários que têm acesso ao sistema.</p>
 							<ul class="nav nav-justified">
-								<li><a href="#" alt="Adicionar" title="Adicionar"><i
+								<li><a href="#" title="Adicionar"><i
 										class="fa fa-plus"></i></a></li>
-								<li><a href="#" alt="Listar" title="Listar"><i
+								<li><a href="#" title="Listar"><i
 										class="fa fa-list"></i></a></li>
 							</ul>
 						</div>
@@ -47,9 +47,9 @@
 							</div>
 							<p>Gerencie os usuários que têm acesso ao sistema.</p>
 							<ul class="nav nav-justified">
-								<li><a href="#" alt="Adicionar" title="Adicionar"><i
+								<li><a href="#" title="Adicionar"><i
 										class="fa fa-plus"></i></a></li>
-								<li><a href="#" alt="Listar" title="Listar"><i
+								<li><a href="#" title="Listar"><i
 										class="fa fa-list"></i></a></li>
 							</ul>
 						</div>
@@ -69,9 +69,9 @@
 							</div>
 							<p>Gerencie os usuários que têm acesso ao sistema.</p>
 							<ul class="nav nav-justified">
-								<li><a href="#" alt="Adicionar" title="Adicionar"><i
+								<li><a href="#" title="Adicionar"><i
 										class="fa fa-plus"></i></a></li>
-								<li><a href="#" alt="Listar" title="Listar"><i
+								<li><a href="#" title="Listar"><i
 										class="fa fa-list"></i></a></li>
 							</ul>
 						</div>
@@ -91,9 +91,9 @@
 							</div>
 							<p>Gerencie os usuários que têm acesso ao sistema.</p>
 							<ul class="nav nav-justified">
-								<li><a href="#" alt="Adicionar" title="Adicionar"><i
+								<li><a href="#" title="Adicionar"><i
 										class="fa fa-plus"></i></a></li>
-								<li><a href="#" alt="Listar" title="Listar"><i
+								<li><a href="#" title="Listar"><i
 										class="fa fa-list"></i></a></li>
 							</ul>
 						</div>
@@ -113,9 +113,9 @@
 							</div>
 							<p>Gerencie os usuários que têm acesso ao sistema.</p>
 							<ul class="nav nav-justified">
-								<li><a href="#" alt="Adicionar" title="Adicionar"><i
+								<li><a href="#" title="Adicionar"><i
 										class="fa fa-plus"></i></a></li>
-								<li><a href="#" alt="Listar" title="Listar"><i
+								<li><a href="#" title="Listar"><i
 										class="fa fa-list"></i></a></li>
 							</ul>
 						</div>
@@ -135,9 +135,9 @@
 							</div>
 							<p>Gerencie os usuários que têm acesso ao sistema.</p>
 							<ul class="nav nav-justified">
-								<li><a href="#" alt="Adicionar" title="Adicionar"><i
+								<li><a href="#" title="Adicionar"><i
 										class="fa fa-plus"></i></a></li>
-								<li><a href="#" alt="Listar" title="Listar"><i
+								<li><a href="#" title="Listar"><i
 										class="fa fa-list"></i></a></li>
 							</ul>
 						</div>
@@ -157,9 +157,9 @@
 							</div>
 							<p>Gerencie os usuários que têm acesso ao sistema.</p>
 							<ul class="nav nav-justified">
-								<li><a href="#" alt="Adicionar" title="Adicionar"><i
+								<li><a href="#" title="Adicionar"><i
 										class="fa fa-plus"></i></a></li>
-								<li><a href="#" alt="Listar" title="Listar"><i
+								<li><a href="#" title="Listar"><i
 										class="fa fa-list"></i></a></li>
 							</ul>
 						</div>

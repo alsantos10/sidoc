@@ -33,12 +33,7 @@ public class DocumentoController implements Logica {
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
 		
-		if(PainelController.sessao!=null && PainelController.isLogado() == false){
-			mensagem.setMessage("Acesso restrito.");
-			mensagem.setStyle("danger");
-			req.setAttribute("mensagem", mensagem.getMessage());
-			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
-		}else{
+		if(PainelController.sessao!=null && PainelController.isLogado() == true){
 			String acao = req.getParameter("acao");
 			req.setAttribute("link_acao", "sistema?c=Documento&acao=inserir");
 			
@@ -174,6 +169,11 @@ public class DocumentoController implements Logica {
 				RequestDispatcher rd = req.getRequestDispatcher("/views/documento/index.jsp");
 				rd.forward(req, res);
 			}
+		}else{
+			mensagem.setMessage("Acesso restrito.");
+			mensagem.setStyle("danger");
+			req.setAttribute("mensagem", mensagem.getMessage());
+			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}
 		
 	}

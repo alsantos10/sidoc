@@ -25,8 +25,10 @@ public class HomeController implements Logica {
 				if(sessao !=null && PainelController.isLogado()){
 					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 				}else{
-					req.setAttribute("link_acao", "sistema?c=Painel&acao=login");					
+					req.setAttribute("link_acao", "sistema?c=Painel&acao=login");
 					req.setAttribute("mensagem", null);
+					req.setAttribute("mensagem", req.getSession().getAttribute("msg_erro"));
+					req.getSession().setAttribute("msg_erro", "");
 					RequestDispatcher rd = req.getRequestDispatcher("/views/home/login.jsp");
 					rd.forward(req, res);
 				}

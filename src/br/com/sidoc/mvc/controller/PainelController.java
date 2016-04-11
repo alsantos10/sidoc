@@ -47,7 +47,7 @@ public class PainelController implements Logica {
 					sessao.setAttribute("usuario_departamento", userValido.getDepartamento());
 					sessao.setAttribute("usuario_gerente", userValido.getGerente());
 					
-					mensagem.setMessage("Usu·rio autenticado com sucesso");
+					mensagem.setMessage("Usu√°rio autenticado com sucesso");
 					req.setAttribute("mensagem", mensagem.getMessage());
 					
 					req.getSession().setAttribute("usuarioLogado",userValido);
@@ -58,6 +58,7 @@ public class PainelController implements Logica {
 
 					mensagem.setMessage("Usuario inexistente ou inativo. Contate o administrador");
 					req.setAttribute("mensagem", mensagem.getMessage());
+					req.getSession().setAttribute("msg_erro",mensagem.getMessage());
 					
 					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 				}
@@ -109,10 +110,13 @@ public class PainelController implements Logica {
 		}
 	}
 	
-	
 	public static boolean isLogado(){
-		if(sessao != null && sessao.getAttribute("usuario_logged") != null){
-			return true;
+		try {
+			if(sessao != null && sessao.getAttribute("usuario_logged") != null){
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println("Erro " + e.getMessage());			
 		}
 		return false;
 	}
