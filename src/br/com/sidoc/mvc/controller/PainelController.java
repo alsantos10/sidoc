@@ -25,7 +25,11 @@ public class PainelController implements Logica {
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
-		
+            
+            
+                req.setAttribute("mensagem", req.getSession().getAttribute("msg_erro"));
+                req.getSession().setAttribute("msg_erro", null);
+            
 		String acao = req.getParameter("acao");
 		// Fazer validação dos dados de entrada
 		if(acao!= null){
@@ -47,9 +51,7 @@ public class PainelController implements Logica {
 					sessao.setAttribute("usuario_departamento", userValido.getDepartamento());
 					sessao.setAttribute("usuario_gerente", userValido.getGerente());
 					
-					mensagem.setMessage("Usuário autenticado com sucesso");
-					req.setAttribute("mensagem", mensagem.getMessage());
-					
+                                        req.getSession().setAttribute("msg_erro", "Usuário autenticado com sucesso");
 					req.getSession().setAttribute("usuarioLogado",userValido);
 					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
 				}else{
@@ -122,24 +124,38 @@ public class PainelController implements Logica {
 	}
 
 	public static boolean isLogadoAdmin(){
+            System.out.println("Esta logado");
 		String tipo = String.valueOf(sessao.getAttribute("usuario_usuariotipo"));
-		return sessao != null && tipo.equals("administrador");
+		if(sessao != null && tipo.equals("administrador")){
+                    return true;
+                }
+                return false;
 	}
 
 	public static boolean isLogadoGerente(){
+            System.out.println("Se e gerente");
 		String tipo = String.valueOf(sessao.getAttribute("usuario_usuariotipo"));
-		return sessao != null && tipo.equals("gerente");
+		if(sessao != null && tipo.equals("gerente")){
+                    return true;
+                }
+                return false;
 	}
 
 	public static boolean isLogadoAlterar(String id){
-		if(id!=null){
+            System.out.println("Alterar Id " +  id);
+		
 			String idSessao = String.valueOf(sessao.getAttribute("usuario_id"));
-			return sessao != null && idSessao.equals(id);
-		}
+                        System.out.println("Verifica Id Logado " +  id);
+                        System.out.println(idSessao + " == " +  id);
+			if(sessao != null && idSessao.equals(id)){
+                            return true;
+                        }
+		
 		return false;
 	}
 
 	public static boolean isLogadoMesmoDepartamento(String id){
+            System.out.println("Mesmo departamento " +  id);
 		if(sessao != null &&id!=null){
 			UsuarioDAO dao = new UsuarioDAO();
 			long idFun = Long.parseLong(id);

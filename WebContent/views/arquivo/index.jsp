@@ -62,8 +62,8 @@
 	                                        <td><fmt:formatDate value="${file.dtCadastro.time}" pattern="dd/MM/yyyy" /></td>
 	                                        <td><c:url value="/sistema?c=Arquivo&acao=exibir&id=${file.id}" var="linkAlterar" /> 
                                                 <c:url value="/sistema?c=Arquivo&acao=excluir&id=${file.id}" var="linkExcluir" /> 
-                                                <a href="${linkAlterar}"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a
-	                                            href="${linkExcluir}"><i class="fa fa-minus-square-o fa-lg "></i></a></td>
+                                                <a href="${linkAlterar}"><i class="fa fa-pencil-square-o fa-2x"></i></a> <a
+	                                            href="${linkExcluir}"><i class="fa fa-minus-square-o text-danger fa-2x"></i></a></td>
 	                                    </tr>								    
 								    </c:if>
 								

@@ -29,7 +29,6 @@ public class CategoriaController implements Logica {
 			
 			// Fazer validação dos dados de entrada
 	
-			
 			if(acao!= null){
 				if(acao.equals("inserir")){
 					dao.salva(ctg);
@@ -56,18 +55,17 @@ public class CategoriaController implements Logica {
 					}
 				}
 				else{
-					mensagem.setMessage("A��o invalida.");
+					mensagem.setMessage("Ação invalida.");
 					mensagem.setStyle("danger");
 				}
+                                req.setAttribute("mensagem", mensagem.getMessage());
 			}
-			    
-			req.setAttribute("mensagem", mensagem.getMessage());
+			
+			
 			RequestDispatcher rd = req.getRequestDispatcher("/views/categoria/index.jsp");
 			rd.forward(req, res);
 		}else{
-			mensagem.setMessage("Acesso restrito.");
-			mensagem.setStyle("danger");
-			req.setAttribute("mensagem", mensagem.getMessage());
+			req.getSession().setAttribute("msg_erro", "Acesso restrito");
 			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}
 	}

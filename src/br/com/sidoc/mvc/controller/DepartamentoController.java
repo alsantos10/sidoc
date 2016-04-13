@@ -6,15 +6,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.sidoc.DAO.DepartamentoDAO;
 import br.com.sidoc.model.Departamento;
+import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 public class DepartamentoController implements Logica {
-	String mensagem;
+	Message mensagem = new Message();
 	
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
-		mensagem = null;
 		
 		if(PainelController.sessao!=null && PainelController.isLogado() == true){
 			String acao = req.getParameter("acao");
@@ -32,15 +32,17 @@ public class DepartamentoController implements Logica {
 			System.out.println("Ação: " + acao);
 			// Fazer validação dos dados de entrada
 	
-			
 			if(acao!= null){
 				if(acao.equals("inserir")){
 					dao.salva(dp);
-					mensagem = "Departamento inserido com sucesso.";
+					mensagem.setMessage("Departamento inserido com sucesso.");
+                                        req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("editar")){
 					dao.salva(dp);
-					mensagem = "Departamento alterado com sucesso.";
+					mensagem.setMessage("Departamento aLterado com sucesso.");
+                                        req.setAttribute("mensagem", mensagem.getMessage());
+                                        
 					Departamento departamento = dao.retornaDepartamento(dp.getId());
 					if(departamento != null){
 						req.setAttribute("depto", departamento);
@@ -49,7 +51,8 @@ public class DepartamentoController implements Logica {
 				}
 				else if(acao.equals("excluir")){
 					dao.remove(dp);
-					mensagem = "Departamento excluído com sucesso.";
+					mensagem.setMessage("Departamento excluido com sucesso.");
+                                        req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("exibir")){
 					Departamento departamento = dao.retornaDepartamento(dp.getId());
@@ -59,15 +62,17 @@ public class DepartamentoController implements Logica {
 					}
 				}
 				else{
-					mensagem = "Ação inválida.";
+                                    mensagem.setMessage("Ação invalida.");
+                                    mensagem.setStyle("danger");
+                                    req.setAttribute("mensagem", mensagem.getMessage());
 				}
+                            RequestDispatcher rd = req.getRequestDispatcher("/views/departamento/index.jsp");
+                            rd.forward(req, res);
 			}
-			
-			req.setAttribute("mensagem", mensagem);
-			RequestDispatcher rd = req.getRequestDispatcher("/views/departamento/index.jsp");
-			rd.forward(req, res);
+                            RequestDispatcher rd = req.getRequestDispatcher("/views/departamento/index.jsp");
+                            rd.forward(req, res);			
 		}else{
-			mensagem = "Acesso restrito.";
+			req.getSession().setAttribute("msg_erro", "Acesso restrico");
 			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}
 	}

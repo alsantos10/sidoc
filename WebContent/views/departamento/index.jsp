@@ -33,14 +33,14 @@
 				<div class="row">
 					<div class="col-md-12">
 						<form
-							action="${urlHome}sistema?acao=editar&c=Departamento&id=${depto.id}"
+							action="${linkNovo}"
 							method="post">
 							<fieldset class="form-group">
 								<legend>Adicionar ${titulo}</legend>
 
 								<div class="form-group">
 									<label class="control-label">Sigla: </label> <input
-										class="form-control" type="text" name="sigla"
+                                                                            class="form-control" type="text" name="sigla" maxlength="5"
 										value="${depto.sigla}" required />
 								</div>
 								<div class="form-group">
@@ -73,10 +73,10 @@
 										<td>${dp.departamento}</td>
 										<td><a
 											href="${urlHome}sistema?c=Departamento&acao=exibir&id=${dp.id}">
-												<i class="fa fa-pencil-square-o fa-lg"></i>
+												<i class="fa fa-pencil-square-o fa-2x"></i>
 										</a> <a
 											href="${urlHome}sistema?c=Departamento&acao=excluir&id=${dp.id}">
-												<i class="fa fa-minus-square-o fa-lg"></i>
+												<i class="fa fa-minus-square-o fa-2x text-danger"></i>
 										</a></td>
 									</tr>
 								</c:forEach>

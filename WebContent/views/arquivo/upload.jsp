@@ -54,9 +54,9 @@
 									rotulo="Título do arquivo" type="text" classe="form-control" outro="required" />
 								
 								<c:if test="${usuario_usuariotipo == 'funcionario'}">
-                                    <cF:cFormHidden id="id_usuario" valor="${usuario_id}" type="hidden" />
-                                </c:if>
-                                <c:if test="${usuario_usuariotipo != 'funcionario'}">
+                                                                    <cF:cFormHidden id="id_usuario" valor="${usuario_id}" type="hidden" />
+                                                                </c:if>
+                                                                <c:if test="${usuario_usuariotipo != 'funcionario'}">
 									<cF:cSelectUsu id="id_usuario" valor="${file.usuario.id}"
 										rotulo="Funcionário Responsável" classe="form-control" outro="required" />
 								</c:if>
