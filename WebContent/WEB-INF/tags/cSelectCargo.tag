@@ -7,8 +7,8 @@
 <%@ attribute name="colSize"%>
 
 <div class="form-group ${colSize}">
-	<label class="control-label">${rotulo}: </label> <select id="${id}"
-		name="${id}" class="${classe}" ${outro}>
+	<label class="control-label">${rotulo}: </label>
+        <select id="${id}" name="${id}" class="${classe}" ${outro} <c:if test="${usuario_usuariotipo == 'funcionario'}">disabled="disabled"</c:if>>
 		<option value="">Selecione...</option>
 
 		<jsp:useBean id="daoCargo" class="br.com.sidoc.DAO.CargoDAO">

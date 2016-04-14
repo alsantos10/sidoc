@@ -9,7 +9,7 @@
 <c:import url="../main/head_meta.jsp" />
 <c:url value="${link_acao}" var="linkNovo" />
 <c:url value="/" var="urlHome" />
-<c:set var="titulo" value="Login" />
+<c:set var="titulo" value="Relatório" />
 <title>SIDOC | ${titulo}</title>
 </head>
 
@@ -22,8 +22,8 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="${urlHome}">Home</a></li>
-			<li class="active">Login</li>
+			<li><a href="${urlHome}sistema?c=Painel">Painel de Controle</a></li>
+			<li class="active">Relatório</li>
 		</ol>
 
 
@@ -39,26 +39,23 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Acesse sua conta</h3>
+							<h3 class="thin text-center">Emitir Relatório</h3>
 							<p class="text-center text-muted">
-								Digite seu usuário e senha para acessor o sistema SIDOC. <br />Em
-								caso de problema de acessar, entre em <a
-									href="${urlHome}sistema?c=Contato">contato</a>.
+								Informe a data inicial e final para gerar o relatório
 							</p>
 							<hr>
 
 							<form action="${linkNovo}" method="post" id="form-login">
-								<cF:cFormBasic id="usuario" valor="${usuario}"
-									rotulo="Usuário / E-mail" type="text" classe="form-control"
+								<cF:campoData id="dt_inicial" valor="${usuario}"
+									rotulo="Data inicial" type="text" classe="form-control"
 									outro="required" />
-								<cF:cFormBasic id="senha" valor="${senha}" rotulo="Senha"
-									type="password" classe="form-control" outro="required" />
+								<cF:campoData id="dt_final" valor="${senha}" rotulo="Senha"
+									type="text" classe="form-control" outro="required" />
 								<hr>
 
 								<div class="row">
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="button"
-											onclick="javascript:verificaLogin();">Logar</button>
+										<button class="btn btn-action" type="submit">Gerar</button>
 									</div>
 								</div>
 							</form>

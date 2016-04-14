@@ -11,7 +11,7 @@
 			</p>
 			<p>
 				<a class="btn btn-action btn-lg" role="button"
-					href="${urlHome}sistema?c=Home&acao=contato">ENTRE EM CONTATO</a>
+					href="${urlHome}sistema?c=Contato">ENTRE EM CONTATO</a>
 				<!-- a class="btn btn-action btn-lg" role="button">DOWNLOAD NOW</a-->
 			</p>
 		</div>

@@ -6,7 +6,10 @@
 <%@ attribute name="outro"%>
 <%@ attribute name="colSize"%>
 
-<c:if test="${usuarioLogado.usuarioTipo =='gerente'}">
+<c:if test="${usuarioLogado.usuarioTipo =='gerente' && valor == 'gerente'}">
+	<input type="hidden" name="${id}" value="gerente" />
+</c:if>
+<c:if test="${usuarioLogado.usuarioTipo =='funcionario' || (usuarioLogado.usuarioTipo =='gerente' && valor == 'funcionario')}">
 	<input type="hidden" name="${id}" value="funcionario" />
 </c:if>
 

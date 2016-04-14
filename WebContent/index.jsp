@@ -64,8 +64,7 @@
 			<h4>Aumente a produtividade de sua empresa utilizando um sistema
 				de informatização de documentos.</h4>
 			<p class="text-right">
-				<a href="${urlHome}sistema?c=Home&acao=contato"
-					class="btn btn-primary btn-large">Entre em contato</a>
+				<a href="${urlHome}sistema?c=Contato" class="btn btn-primary btn-large">Entre em contato</a>
 			</p>
 		</div>
 

@@ -19,9 +19,7 @@
 
             <jsp:useBean id="dao2" class="br.com.sidoc.DAO.UsuarioDAO">
                 <c:forEach var="user" items="${dao2.lista}">
-                    ${usuario_departamento.id} == ${user.departamento.id}
-                    
-                    <c:if test="${usuario_usuariotipo == 'gerente' && usuario_departamento.id == user.departamento.id}">
+                    <c:if test="${(usuario_usuariotipo == 'gerente' && usuario_id == user.gerente.id) || usuario_id == user.id}">
                         <c:choose>
                             <c:when test="${valor == user.id}">
                                 <option value="${user.id}" selected="selected">${user.nome}
@@ -32,6 +30,19 @@
                             </c:otherwise>
                         </c:choose>
                     </c:if>
+                    
+                    <c:if test="${usuario_usuariotipo == 'administrador'}">
+                        <c:choose>
+                            <c:when test="${valor == user.id}">
+                                <option value="${user.id}" selected="selected">${user.nome}
+                                    ${user.sobrenome}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${user.id}">${user.nome} ${user.sobrenome}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:if>
+                                
                 </c:forEach>
             </jsp:useBean>
         </select>	

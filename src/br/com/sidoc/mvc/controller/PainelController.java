@@ -167,8 +167,7 @@ public class PainelController implements Logica {
 	
 	private Usuario autenticarUsuario(String usuario, String senha) throws NoSuchAlgorithmException{
 		UsuarioDAO dao = new UsuarioDAO();
-		Usuario user = new Usuario();
-		user = dao.autenticaUsuarioByEmail(usuario, Utils.md5(senha));
+		Usuario user = dao.autenticaUsuarioByEmail(usuario, Utils.md5(senha));
 		if(user != null && user.getId()>0){
 			System.out.println("Usuario credenciado pelo email");
 			return user;

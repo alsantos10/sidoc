@@ -6,15 +6,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.sidoc.DAO.CargoDAO;
 import br.com.sidoc.model.Cargo;
+import br.com.sidoc.utils.Message;
 import br.com.sidoc.utils.Utils;
 
 public class CargoController implements Logica {
-	String mensagem;
+        Message mensagem = new Message();
 	
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
-		mensagem = null;
 		
 		if(PainelController.sessao!=null && PainelController.isLogado() == true){
 			String acao = req.getParameter("acao");
@@ -34,11 +34,11 @@ public class CargoController implements Logica {
 			if(acao!= null){
 				if(acao.equals("inserir")){
 					dao.salva(ctg);
-					mensagem = "Cargo inserido com sucesso.";
+                                        mensagem.setMessage("Cargo inserido com sucesso.");
 				}
 				else if(acao.equals("editar")){
 					dao.salva(ctg);
-					mensagem = "Cargo alterado com sucesso.";
+					mensagem.setMessage("Cargo alerado com sucesso.");
 					Cargo cargo = dao.retornaCargo(ctg.getId());
 					if(cargo != null){
 						req.setAttribute("cargo", cargo);
@@ -47,7 +47,8 @@ public class CargoController implements Logica {
 				}
 				else if(acao.equals("excluir")){
 					dao.remove(ctg);
-					mensagem = "Cargo excluída com sucesso.";
+					mensagem.setMessage("Cargo excluido com sucesso.");
+					mensagem.setStyle("danger");
 				}
 				else if(acao.equals("exibir")){
 					Cargo cargo = dao.retornaCargo(ctg.getId());
@@ -57,15 +58,16 @@ public class CargoController implements Logica {
 					}
 				}
 				else{
-					mensagem = "Ação inválida.";
+					mensagem.setMessage("Ação invalida.");
+					mensagem.setStyle("danger");
 				}
 			}
 			    
-			req.setAttribute("mensagem", mensagem);
+			req.setAttribute("mensagem", mensagem.getMessage());
 			RequestDispatcher rd = req.getRequestDispatcher("/views/cargo/index.jsp");
 			rd.forward(req, res);
 		}else{
-			mensagem = "Acesso restrito.";
+			req.getSession().setAttribute("msg_erro", "Acesso restrito");
 			res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Home&acao=login");
 		}
 	}

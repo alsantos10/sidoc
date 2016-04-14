@@ -20,25 +20,23 @@ public class HomeController implements Logica {
 			throws Exception {
 	
                String acao = req.getParameter("acao");
-		if(acao!= null){
-			if(acao.equals("login")){
-				if(sessao !=null && PainelController.isLogado()){
-                                        req.getSession().setAttribute("msg_erro", "Login efetuado com sucesso");
-					res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
-				}else{
-					req.setAttribute("link_acao", "sistema?c=Painel&acao=login");
-					req.setAttribute("mensagem", null);
-					req.setAttribute("mensagem", req.getSession().getAttribute("msg_erro"));
-					req.getSession().setAttribute("msg_erro", "");
-				}
-                            RequestDispatcher rd = req.getRequestDispatcher("/views/home/login.jsp");
-                            rd.forward(req, res);
-			}
+		if(acao == null){
+                    req.getSession().setAttribute("mensagem",null);
+                    res.sendRedirect(Utils.getBaseUrl(req));
+                }else if(acao.equals("login")){
+                    if(sessao != null && PainelController.isLogado()){
+                        req.getSession().setAttribute("msg_erro", "Login efetuado com sucesso");
+                        res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
+                    }else{
+                        req.setAttribute("link_acao", "sistema?c=Painel&acao=login");
+                        req.setAttribute("mensagem", req.getSession().getAttribute("msg_erro"));
+                        req.getSession().setAttribute("msg_erro", null);
                         RequestDispatcher rd = req.getRequestDispatcher("/views/home/login.jsp");
                         rd.forward(req, res);
-		}else{
-			req.getSession().setAttribute("mensagem",null);
-			res.sendRedirect(Utils.getBaseUrl(req));
+                    }
+                }else{
+                    RequestDispatcher rd = req.getRequestDispatcher("/views/home/login.jsp");
+                    rd.forward(req, res);                    
 		}
 	}
 }

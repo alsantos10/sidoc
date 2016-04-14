@@ -47,3 +47,25 @@ function alterarSenha(){
 }
  
 
+function resetarSenha(){
+	var senhaNova  = $("#senhaNova").val();
+	var senhaConf  = $("#senhaConf").val();
+	var erros = new Array(); 
+        erros['snova'] = erros['sconf'] = "";
+	if(senhaNova == "" || senhaNova.length < 6 || senhaNova.length > 12){
+		erros['snova'] = "Senha nova deve ter entre 6 e 12 caracteres.";
+	}
+	if(senhaConf != senhaNova){
+		erros['sconf'] = "Senha deve ser igual a nova senha.";
+	}
+	if(senhaConf == "" || senhaConf.length < 6 || senhaConf.length > 12){
+		erros['sconf'] = "Senha deve ter entre 6 e 12 caracteres";
+	}
+	$("#senhaNova + .text-danger").text(erros['snova']);
+	$("#senhaConf + .text-danger").text(erros['sconf']);
+	if(erros['snova'] == ""  && erros['sconf'] == ""){
+		$("#form-AlterarSenha").submit();
+	}
+	
+}
+

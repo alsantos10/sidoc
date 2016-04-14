@@ -167,19 +167,37 @@ public class FuncionarioController implements Logica {
 						}
 					} 
 					
+					
+					else if(acao.equals("resetar"))
+					{
+						if(PainelController.isLogadoAdmin() ||
+                                                    (PainelController.isLogadoGerente() && PainelController.isLogadoMesmoDepartamento(id) )){
+							
+							req.setAttribute("link_acao", "sistema?c=Funcionario&acao=resetarSenha&id="+id);
+							RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/resetar-senha.jsp");
+							rd.forward(req, res);
+						}else{
+							mensagem.setMessage("Ação inválida.");
+							mensagem.setStyle("danger");
+							req.setAttribute("mensagem", mensagem.getMessage());
+							res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
+						}
+					} 
+                                        
+                                        
 					else if(acao.equals("gravar"))
 					{		
-						if(PainelController.isLogadoAlterar(id) || PainelController.isLogadoAdmin() || 
-								PainelController.isLogadoGerente()){
+						if(PainelController.isLogadoAlterar(id) || PainelController.isLogadoAdmin() ||
+                                                   (PainelController.isLogadoGerente() && PainelController.isLogadoMesmoDepartamento(id))){
 							
-							if(id!=null && id!=""){
-								func.setId(Long.parseLong(id));
-								if((PainelController.isLogadoGerente() && !PainelController.isLogadoMesmoDepartamento(id))){
-									mensagem.setMessage("Ação inválida.");
-									mensagem.setStyle("danger");
-									req.setAttribute("mensagem", mensagem.getMessage());
-									res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
-								}
+							if(id!=null){
+                                                            func.setId(Long.parseLong(id));
+                                                            if((PainelController.isLogadoGerente() && !PainelController.isLogadoMesmoDepartamento(id))){
+                                                                    mensagem.setMessage("Ação inválida.");
+                                                                    mensagem.setStyle("danger");
+                                                                    req.setAttribute("mensagem", mensagem.getMessage());
+                                                                    res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
+                                                            }
 							}			
 							dao.salva(func);
 							Usuario funcNovo = dao.retornaUsuarioByLogin(func.getLogin());
@@ -223,6 +241,33 @@ public class FuncionarioController implements Logica {
 							req.setAttribute("mensagem", mensagem.getMessage());
 						    req.setAttribute("link_acao", "sistema?c=Funcionario&acao=gravarSenha&id="+id);
 							RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/alterar-senha.jsp");
+							rd.forward(req, res);
+						}else{
+							req.getSession().setAttribute("msg_erro", "Ação inválida");
+							res.sendRedirect(Utils.getBaseUrl(req) + "/sistema?c=Painel");
+						}
+					}
+					
+					else if(acao.equals("resetarSenha"))
+					{
+                                            System.out.println("Resetar " +  id);
+						if(PainelController.isLogadoAdmin() ||
+                                                    (PainelController.isLogadoGerente() && PainelController.isLogadoMesmoDepartamento(id))){
+                                                        if(id!=null && id!="")func.setId(Long.parseLong(id));
+							String senhaNova = req.getParameter("senhaNova");
+							String senhaConf = req.getParameter("senhaConf");
+												
+							if(senhaNova.equals(senhaConf)){
+                                                                func.setSenha(Utils.md5(senhaNova));
+                                                                dao.alterarSenha(func);
+                                                                mensagem.setMessage("Senha alterada com sucesso.");
+							}else{
+								mensagem.setMessage("Nova senha incorreta.");
+								mensagem.setStyle("danger");
+							}
+							req.setAttribute("mensagem", mensagem.getMessage());
+                                                        req.setAttribute("link_acao", "sistema?c=Funcionario&acao=resetarSenha&id="+id);
+							RequestDispatcher rd = req.getRequestDispatcher("/views/funcionario/resetar-senha.jsp");
 							rd.forward(req, res);
 						}else{
 							req.getSession().setAttribute("msg_erro", "Ação inválida");
