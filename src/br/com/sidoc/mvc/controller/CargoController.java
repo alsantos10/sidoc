@@ -29,26 +29,28 @@ public class CargoController implements Logica {
 			if(cargo1 != null) ctg.setCargo(cargo1);
 			
 			// Fazer validação dos dados de entrada
-	
-			
+				
 			if(acao!= null){
 				if(acao.equals("inserir")){
 					dao.salva(ctg);
                                         mensagem.setMessage("Cargo inserido com sucesso.");
+                			req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("editar")){
 					dao.salva(ctg);
-					mensagem.setMessage("Cargo alerado com sucesso.");
+					mensagem.setMessage("Cargo alterado com sucesso.");
 					Cargo cargo = dao.retornaCargo(ctg.getId());
 					if(cargo != null){
 						req.setAttribute("cargo", cargo);
 						req.setAttribute("link_acao", "sistema?c=Cargo&acao=editar&id="+ctg.getId());
 					}
+                			req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("excluir")){
 					dao.remove(ctg);
 					mensagem.setMessage("Cargo excluido com sucesso.");
 					mensagem.setStyle("danger");
+                			req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("exibir")){
 					Cargo cargo = dao.retornaCargo(ctg.getId());
@@ -60,10 +62,9 @@ public class CargoController implements Logica {
 				else{
 					mensagem.setMessage("Ação invalida.");
 					mensagem.setStyle("danger");
+                			req.setAttribute("mensagem", mensagem.getMessage());
 				}
 			}
-			    
-			req.setAttribute("mensagem", mensagem.getMessage());
 			RequestDispatcher rd = req.getRequestDispatcher("/views/cargo/index.jsp");
 			rd.forward(req, res);
 		}else{

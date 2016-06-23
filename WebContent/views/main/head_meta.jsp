@@ -15,6 +15,7 @@
 	media="screen">
 <link rel="stylesheet" href="assets/css/main.css">
 <link rel="stylesheet" href="assets/css/jquery-ui.css" type="text/css">
+<link rel="stylesheet" href="assets/css/lightbox.css" type="text/css">
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -22,6 +23,6 @@
 <script src="assets/js/respond.min.js"></script>
 <![endif]-->
 
-<script type="text/javascript" src="assets/js/scripts.js"></script>
 <script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>

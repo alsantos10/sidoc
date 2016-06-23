@@ -209,7 +209,7 @@ public class ArquivoController implements Logica {
 							Long idNovo = gravarArquivo(arquivo);
 							if(idNovo > 0){
 								Arquivo arquivoNew = dao.retornaArquivo(idNovo);
-								mensagem.setMessage("Alteração no arquivo "+ arquivoNew.getTitulo()+" realizada com sucesso");
+								mensagem.setMessage("AlteraÃ§Ã£o no arquivo "+ arquivoNew.getTitulo()+" realizada com sucesso");
 								mensagem.setStyle("success");
 							}
 					       

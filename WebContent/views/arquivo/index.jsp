@@ -55,7 +55,10 @@
                                     <c:forEach var="file" items="${dao.lista}">
                                         <c:if test="${usuario_usuariotipo ==  'funcionario' && usuario_id == file.usuario.id}">
                                             <tr>
-                                                <td><img alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+                                                <td>
+                                                    <a class="img-file-link" href="${dir_images}${file.arquivo}" data-lightbox="example-set" data-title="${file.titulo}">
+                                                    <img class="img-file" alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+                                                    </a>
                                                 </td>
                                                 <td>${file.titulo}</td>
                                                 <td>${file.documento.titulo}</td>
@@ -69,7 +72,10 @@
 
                                         <c:if test="${usuario_usuariotipo == 'gerente' && usuario_id == file.usuario.gerente.id}">
                                             <tr>
-                                                <td><img alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+                                                <td>
+                                                    <a class="img-file-link" href="${dir_images}${file.arquivo}" data-lightbox="example-set" data-title="${file.titulo}">
+                                                    <img class="img-file" alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+                                                    </a>
                                                 </td>
                                                 <td>${file.titulo}</td>
                                                 <td>${file.documento.titulo}</td>
@@ -84,25 +90,24 @@
                                             
                                             <c:if test="${usuario_usuariotipo ==  'administrador'}">
                                             <tr>
-                                                <td><img alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+                                                <td>
+                                                    <a class="img-file-link" href="${dir_images}${file.arquivo}" data-lightbox="example-set" data-title="${file.titulo}">
+                                                    <img class="img-file" alt="${file.titulo}" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+                                                    </a>
                                                 </td>
                                                 <td>${file.titulo}</td>
                                                 <td>${file.documento.titulo}</td>
                                                 <td><fmt:formatDate value="${file.dtCadastro.time}" pattern="dd/MM/yyyy" /></td>
                                                 <td><c:url value="/sistema?c=Arquivo&acao=exibir&id=${file.id}" var="linkAlterar" /> 
                                                     <c:url value="/sistema?c=Arquivo&acao=excluir&id=${file.id}" var="linkExcluir" /> 
-                                                    <a href="${linkAlterar}"><i class="fa fa-pencil-square-o fa-2x"></i></a> <a
-                                                        href="${linkExcluir}"><i class="fa fa-minus-square-o text-danger fa-2x"></i></a></td>
+                                                    <a href="${linkAlterar}"><i class="fa fa-pencil fa-2x"></i></a> <a
+                                                        href="${linkExcluir}"><i class="fa fa-times text-danger fa-2x"></i></a></td>
                                             </tr>								    
                                         </c:if>
 
                                     </c:forEach>
                                 </jsp:useBean>
-
                             </table>
-
-
-
                         </div>
                     </div>
                 </article>

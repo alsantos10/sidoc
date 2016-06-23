@@ -87,7 +87,7 @@
 						<div class="panel-body">
 							<div class="h-caption">
 								<h4>
-									<i class="fa fa-building-o fa-5"></i>
+									<i class="fa fa-cogs fa-5"></i>
 								</h4>
 							</div>
 							<p>Gerencie os cargos dos empregados cadastrados.</p>

@@ -298,3 +298,13 @@ img.pull-left {
 .widget-simplenav a {
 	margin: 0 5px;
 }
+
+
+.panel-body p {
+    height: 43px;
+    overflow-y: hidden;
+}
+
+.table tr th:last-child{
+    width: 100px;
+}

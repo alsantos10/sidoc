@@ -73,10 +73,10 @@
 										<td>${dp.departamento}</td>
 										<td><a
 											href="${urlHome}sistema?c=Departamento&acao=exibir&id=${dp.id}">
-												<i class="fa fa-pencil-square-o fa-2x"></i>
+												<i class="fa fa-pencil fa-2x"></i>
 										</a> <a
 											href="${urlHome}sistema?c=Departamento&acao=excluir&id=${dp.id}">
-												<i class="fa fa-minus-square-o fa-2x text-danger"></i>
+												<i class="fa fa-times fa-2x text-danger"></i>
 										</a></td>
 									</tr>
 								</c:forEach>

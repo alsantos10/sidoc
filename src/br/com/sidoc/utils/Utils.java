@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class Utils {
 
 	  public static String BASE_ABSOLUTE_PATH =
-		   "C:/Users/Vilma/Documents/Projetos_git/sidoc/WebContent/";
+		   "C:/Users/Andre/Documents/Projetos_git/sidoc/WebContent/";
 	  
 
 	public static String getRelativeUrl(

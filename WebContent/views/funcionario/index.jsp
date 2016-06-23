@@ -62,10 +62,10 @@
                                                         var="linkSenha" /> <c:url
                                                         value="/sistema?c=Funcionario&acao=excluir&id=${funci.id}"
                                                         var="linkExcluir" /> <a href="${linkSenha}"><i
-                                                            class="fa fa-unlock-alt fa-2x text-info"></i></a> <a
+                                                            class="fa fa-unlock-alt fa-2x text-success"></i></a> <a
                                                         href="${linkAlterar}"><i
-                                                            class="fa fa-pencil-square-o fa-2x icon-fixed-width icon-pencil"></i></a> <a href="${linkExcluir}" class="btnExcluir"><i
-                                                            class="fa fa-minus-square-o fa-2x text-danger"></i></a></td>
+                                                            class="fa fa-pencil fa-2x icon-fixed-width icon-pencil"></i></a> <a href="${linkExcluir}" class="btnExcluir"><i
+                                                            class="fa fa-times fa-2x text-danger"></i></a></td>
                                             </tr>
                                         </c:if>
                                             
@@ -83,10 +83,10 @@
                                                         var="linkSenha" /> <c:url
                                                         value="/sistema?c=Funcionario&acao=excluir&id=${funci.id}"
                                                         var="linkExcluir" /> <a href="${linkSenha}"><i
-                                                            class="fa fa-unlock-alt fa-2x text-info"></i></a> <a
+                                                            class="fa fa-unlock-alt fa-2x text-warning"></i></a> <a
                                                         href="${linkAlterar}"><i
-                                                            class="fa fa-pencil-square-o fa-2x icon-fixed-width icon-pencil"></i></a> <a href="${linkExcluir}" class="btnExcluir"><i
-                                                            class="fa fa-minus-square-o fa-2x text-danger"></i></a></td>
+                                                            class="fa fa-pencil fa-2x icon-fixed-width icon-pencil"></i></a> <a href="${linkExcluir}" class="btnExcluir"><i
+                                                            class="fa fa-times fa-2x text-danger"></i></a></td>
                                             </tr>
                                         </c:if>
 

@@ -68,9 +68,9 @@
 												var="linkAlterar" /> <c:url
 												value="/sistema?c=Categoria&acao=excluir&id=${dp.id}"
 												var="linkExcluir" /> <a href="${linkAlterar}"><i
-												class="fa fa-pencil-square-o fa-lg"></i></a> <a
+												class="fa fa-pencil fa-2x"></i></a> <a
 											href="${linkExcluir}"><i
-												class="fa fa-minus-square-o fa-lg "></i></a></td>
+												class="fa fa-times fa-2x text-danger"></i></a></td>
 									</tr>
 								</c:forEach>
 							</jsp:useBean>

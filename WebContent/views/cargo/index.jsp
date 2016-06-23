@@ -2,90 +2,94 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<c:import url="../main/head_meta.jsp" />
-<c:url value="${link_acao}" var="linkNovo" />
-<c:url value="/" var="urlHome" />
-<c:set var="titulo" value="Cargo" />
-<title>SIDOC | ${titulo}</title>
-</head>
+    <head>
+        <c:import url="../main/head_meta.jsp" />
+        <c:url value="${link_acao}" var="linkNovo" />
+        <c:url value="/" var="urlHome" />
+        <c:set var="titulo" value="Cargo" />
+        <title>SIDOC | ${titulo}</title>
+    </head>
 
-<body>
-	<c:import url="../main/menu.jsp" />
-	<header id="head" class="secondary"></header>
-	<!-- container -->
-	<div class="container">
+    <body>
+        <c:import url="../main/menu.jsp" />
+        <header id="head" class="secondary"></header>
+        <!-- container -->
+        <div class="container">
 
-		<ol class="breadcrumb">
-			<li><a href="${urlHome}sistema?c=Painel">Painel de Controle</a></li>
-			<li class="active">${titulo}s</li>
-		</ol>
+            <ol class="breadcrumb">
+                <li><a href="${urlHome}sistema?c=Painel">Painel de Controle</a></li>
+                <li class="active">${titulo}s</li>
+            </ol>
 
-		<div class="row">
-			<!-- Article main content -->
-			<article class="col-md-12 maincontent">
-				<header class="page-header">
-					<h1 class="page-title">Gerenciar ${titulo}s</h1>
-				</header>
+            <div class="row">
+                <!-- Article main content -->
+                <article class="col-md-12 maincontent">
+                    <header class="page-header">
+                        <h1 class="page-title">Gerenciar ${titulo}s</h1>
+                    </header>
 
-				<c:import url="../main/messages.jsp" />
+                    <c:import url="../main/messages.jsp" />
 
-				<div class="row">
-					<div class="col-md-12">
-						<form action="${linkNovo}" method="post">
-							<fieldset class="form-group">
-								<legend>Adicionar ${titulo}</legend>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="formcadastro" action="${linkNovo}" method="post">
+                                <fieldset class="form-group">
+                                    <legend>Adicionar ${titulo}</legend>
 
-								<div class="form-group">
-									<label class="control-label">Cargo: </label> <input
-										class="form-control" type="text" name="cargo"
-										value="${cargo.cargo}" required />
-								</div>
-								<div class="form-group">
-									<input type="hidden" name="acao" value="editar" /> <input
-										class="btn btn-primary" type="submit" value="Gravar" /> <a
-										href="${urlHome}sistema?c=Cargo" class="btn btn-default">Limpar</a>
-								</div>
-							</fieldset>
-						</form>
-					</div>
-				</div>
+                                    <div class="form-group">
+                                        <label class="control-label">Cargo: </label> <input
+                                            class="form-control" type="text" name="cargo"
+                                            value="${cargo.cargo}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="acao" value="editar" /> <input
+                                            class="btn btn-primary" type="submit" value="Gravar" /> <a
+                                            href="${urlHome}sistema?c=Cargo" class="btn btn-default">Limpar</a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
 
-				<div class="row">
-					<div class="col-md-12">
-						<table class="table table-striped">
-							<tr>
-								<th>Cargo</th>
-								<th>Ação</th>
-							</tr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Cargo</th>
+                                    <th>Ação</th>
+                                </tr>
 
-							<jsp:useBean id="dao" class="br.com.sidoc.DAO.CargoDAO">
-								<c:forEach var="dp" items="${dao.lista}">
-									<tr>
-										<td>${dp.cargo}</td>
-										<td><c:url
-												value="/sistema?c=Cargo&acao=exibir&id=${dp.id}"
-												var="linkAlterar" /> <c:url
-												value="/sistema?c=Cargo&acao=excluir&id=${dp.id}"
-												var="linkExcluir" /> <a href="${linkAlterar}"><i
-												class="fa fa-pencil-square-o fa-lg"></i></a> <a
-											href="${linkExcluir}"><i
-												class="fa fa-minus-square-o fa-lg "></i></a></td>
-									</tr>
-								</c:forEach>
-							</jsp:useBean>
+                                <jsp:useBean id="dao" class="br.com.sidoc.DAO.CargoDAO">
+                                    <c:forEach var="dp" items="${dao.lista}">
+                                        <tr>
+                                            <td>${dp.cargo}</td>
+                                            <td><c:url
+                                                    value="/sistema?c=Cargo&acao=exibir&id=${dp.id}"
+                                                    var="linkAlterar" /> <c:url
+                                                    value="/sistema?c=Cargo&acao=excluir&id=${dp.id}"
+                                                    var="linkExcluir" /> <a href="${linkAlterar}"><i
+                                                        class="fa fa-pencil fa-2x"></i></a> <a
+                                                    href="${linkExcluir}"><i
+                                                        class="fa fa-times fa-2x text-danger"></i></a></td>
+                                        </tr>
+                                    </c:forEach>
+                                </jsp:useBean>
 
-						</table>
-					</div>
-				</div>
-			</article>
-		</div>
-	</div>
-	<!-- /container -->
+                            </table>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- /container -->
 
-	<c:import url="../main/rodape.jsp" />
+        <c:import url="../main/rodape.jsp" />
 
-</body>
+        <script type="text/javascript">
+//            $("#formcadastro").validFields($("input[value='Gravar']"));
+        </script>
+
+    </body>
 </html>
 
 

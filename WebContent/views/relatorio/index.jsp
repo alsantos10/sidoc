@@ -46,10 +46,10 @@
 							<hr>
 
 							<form action="${linkNovo}" method="post" id="form-login">
-								<cF:campoData id="dt_inicial" valor="${usuario}"
+								<cF:campoData id="dt_inicial" valor="${dt_inicial}"
 									rotulo="Data inicial" type="text" classe="form-control"
 									outro="required" />
-								<cF:campoData id="dt_final" valor="${senha}" rotulo="Senha"
+								<cF:campoData id="dt_final" valor="${dt_final}" rotulo="Data final"
 									type="text" classe="form-control" outro="required" />
 								<hr>
 

@@ -69,3 +69,33 @@ function resetarSenha(){
 	
 }
 
+$.fn.validFields = function(target){
+    var me = this;
+    var ret = true;
+    target.click(function(){
+        var form = $(this).parent("form");
+        var fields = form.serializeArray();
+        var ret = true;
+        $.each(fields, function(index, field){
+            if(field.value !== 'editar'){
+                if(isEmpty(field.value)){
+                    ret = false;
+                    return false;
+                }
+            }
+        });
+        if(ret === true){
+            form.submit();
+            alert("gravar");
+        }
+            
+    });
+    
+    var isEmpty = function(value){
+        if(value === undefined || value === "" || isNaN(value) ){
+            return true;
+        }
+        return false;
+    }
+    
+};

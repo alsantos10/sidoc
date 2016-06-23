@@ -89,8 +89,8 @@
                                                 <td>${doc.ativo=='s'?'Ativo':'Inativo'}</td>
                                                 <td><c:url value="/sistema?c=Documento&acao=editar&id=${doc.id}" var="linkAlterar" /> 
                                                     <c:url value="/sistema?c=Documento&acao=excluir&id=${doc.id}" var="linkExcluir" />
-                                                    <a href="${linkAlterar}"><i class="fa fa-pencil-square-o fa-lg"></i></a> 
-                                                    <a href="${linkExcluir}" class="btnExcluir text text-danger"><i class="fa fa-minus-square-o fa-lg "></i></a></td>
+                                                    <a href="${linkAlterar}"><i class="fa fa-pencil fa-2x"></i></a> 
+                                                    <a href="${linkExcluir}" class="btnExcluir text text-danger"><i class="fa fa-times fa-2x"></i></a></td>
                                             </tr>
                                         </c:if>
 

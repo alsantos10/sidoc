@@ -117,7 +117,7 @@ public class DocumentoController implements Logica {
 					
 					mensagem.setMessage("Documento salvo com sucesso.");
 					req.setAttribute("mensagem", mensagem.getMessage());
-				    req.setAttribute("link_acao", "sistema?c=Documento&acao=gravar&id="+id);
+                                        req.setAttribute("link_acao", "sistema?c=Documento&acao=gravar&id="+id);
 					RequestDispatcher rd = req.getRequestDispatcher("/views/documento/create.jsp");
 					rd.forward(req, res);
 				}
@@ -125,14 +125,14 @@ public class DocumentoController implements Logica {
 				
 				else if(acao.equals("excluir"))
 				{
-					mensagem.setMessage("Documento não foi encontrado.");
+					mensagem.setMessage("Documento nao foi encontrado.");
 					mensagem.setStyle("danger");
 					doc.setId(Long.parseLong(id));
 					Documento docNovo = dao.retornaDocumento(doc.getId());
 					System.out.println("ID: " + docNovo.getId());
 					if(docNovo.getId()>0 ){
 						dao.remove(docNovo);
-						mensagem.setMessage("Documento excuido com sucesso.");
+						mensagem.setMessage("Documento excluido com sucesso.");
 						mensagem.setStyle("success");
 					}
 					req.setAttribute("mensagem", mensagem.getMessage());
@@ -154,7 +154,7 @@ public class DocumentoController implements Logica {
 				}
 				else
 				{
-					mensagem.setMessage("Ação invalida.");
+					mensagem.setMessage("AÃ§Ã£o invalida.");
 					mensagem.setStyle("danger");
 					req.setAttribute("mensagem", mensagem.getMessage());
 					RequestDispatcher rd = req.getRequestDispatcher("/views/documento/index.jsp");

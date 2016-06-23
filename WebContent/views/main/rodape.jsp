@@ -63,8 +63,8 @@
 </footer>
 
 <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-<script src="assets/js/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/headroom.min.js"></script>
-<script src="assets/js/jQuery.headroom.min.js"></script>
-<script src="assets/js/template.js"></script>
+<script type="text/javascript" src="assets/js/headroom.min.js"></script>
+<script type="text/javascript" src="assets/js/template.js"></script>
+<script type="text/javascript" src="assets/js/jQuery.headroom.min.js"></script>
+<script type="text/javascript" src="assets/js/lightbox-plus-jquery.js"></script>
+<script type="text/javascript" src="assets/js/scripts.js"></script>

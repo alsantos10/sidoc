@@ -12,6 +12,7 @@ import java.util.List;
 import com.mysql.jdbc.Statement;
 
 import br.com.sidoc.conexao.ConnectionFactory;
+import br.com.sidoc.model.Arquivo;
 import br.com.sidoc.model.Categoria;
 import br.com.sidoc.model.Departamento;
 import br.com.sidoc.model.Documento;
@@ -262,6 +263,55 @@ public class DocumentoDAO {
 			throw new RuntimeException(e);
 		}
 	}
+        
+        
+        public List<Documento> getRelatorio(String dtIni, String dtFim){
+		try {
+			String sql = 
+                        "SELECT * FROM " + table  + " " +
+                        "WHERE " + table + ".dt_cadastro BETWEEN ('" + dtIni + "') AND ('" + dtFim + "') " +
+                        "ORDER BY " + table + ".dt_cadastro DESC";
+			List<Documento> docs = new ArrayList<Documento>();
+			PreparedStatement stmt = this.conn. prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()){
+				Documento doc = new Documento();
+				doc.setId(rs.getLong("id"));
+				doc.setTitulo(rs.getString("titulo"));
+				doc.setRefDocFisico(rs.getString("ref_doc_fisico"));
+				doc.setDescricao(rs.getString("descricao"));
+				doc.setAtivo(rs.getString("ativo"));
+				
+				// montando a data atraves do Calendar
+				Calendar dt = Calendar.getInstance();
+				dt.setTime(rs.getDate("dt_cadastro"));
+				doc.setDtCadastro(dt);
+				
+				Calendar dt2 = Calendar.getInstance();
+				dt2.setTime(rs.getDate("dt_validade"));
+				doc.setDtValidade(dt2);
+				
+				Categoria categ 	= this.retCategoria(rs.getLong("id_categoria"));
+				Departamento depto 	= this.retDepartamento(rs.getLong("id_departamento"));
+				Usuario usuario 	= this.retUsuario(rs.getLong("id_usuario"));
+                                
+				doc.setCategoria(categ);
+				doc.setDepartamento(depto);
+				doc.setUsuario(usuario);
+				
+				// adicionando o objeto a lista
+				docs.add(doc);
+			}
+			rs.close();
+			stmt.close();
+			return docs;
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+        
 	
 	/**
 	 * @param long

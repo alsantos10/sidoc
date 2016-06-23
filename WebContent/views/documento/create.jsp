@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url value="/" var="urlHome" />
+<c:url value="assets/uploads/" var="dir_images" />
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cF"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="java.text.SimpleDateFormat, java.util.Date"%>
@@ -106,6 +107,46 @@
                                             <cF:cSelectSouN id="ativo"
                                                             valor="${doc.ativo=='s'?doc.ativo:'n'}"
                                                             rotulo="Status do Documento" classe="form-control" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <fieldset class="form-group">
+                                    <legend>Arquivo(s) do Documento</legend>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table id="table-${titulo}" class="table table-striped display">
+                                                <tr>
+                                                    <th>Arquivo</th>
+                                                    <th>Título</th>
+                                                    <th>Documento</th>
+                                                    <th>Cadastro</th>
+                                                    <th>Ação</th>
+                                                </tr>
+
+                                                <jsp:useBean id="dao" class="br.com.sidoc.DAO.ArquivoDAO">
+                                                    <c:forEach var="file" items="${dao.lista}">
+                                                        <c:if test="${file.documento.id == doc.id}">
+                                                            <tr>
+                                                                <td>
+                                                                    <a class="doc-image-link" href="${dir_images}${file.arquivo}" data-lightbox="example-set" data-title="${file.titulo}">
+                                                                    <img alt="${file.titulo}" class="doc-image" src="${dir_images}${file.arquivo}" style="max-width: 100px; max-height: 60px; text-align: center;" />
+                                                                    </a>
+                                                                </td>
+                                                                <td>${file.titulo}</td>
+                                                                <td>${file.documento.titulo}</td>
+                                                                <td><fmt:formatDate value="${file.dtCadastro.time}" pattern="dd/MM/yyyy" /></td>
+                                                                <td><c:url
+                                                                        value="/sistema?c=Arquivo&acao=exibir&id=${file.id}"
+                                                                        var="linkAlterar" /> <c:url value="/sistema?c=Arquivo&acao=excluir&id=${file.id}"
+                                                                        var="linkExcluir" /> <a href="${linkAlterar}"><i class="fa fa-pencil fa-2x"></i></a> 
+                                                                    <a href="${linkExcluir}"><i class="fa fa-times fa-2x fa-lg text-danger"></i></a></td>
+                                                            </tr>
+                                                        </c:if>
+                                                      
+                                                    </c:forEach>
+                                                </jsp:useBean>
+                                            </table>
                                         </div>
                                     </div>
                                 </fieldset>

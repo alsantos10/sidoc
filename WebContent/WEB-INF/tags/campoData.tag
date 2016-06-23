@@ -17,7 +17,7 @@
 <div class="form-group ${colSize}">
 	<label class="control-label">${rotulo}: </label> <input id="${id}"
 		name="${id}" type="${type}" class="${classe}" ${outro}
-		value="${data_value}" />
+                value="${data_value}" placeholder="dd/mm/yyyy" />
 </div>
 <script>
 

@@ -15,6 +15,7 @@ public class CategoriaController implements Logica {
 	@Override
 	public void executa(HttpServletRequest req, HttpServletResponse res) 
 			throws Exception {
+            
 		if(PainelController.sessao!=null && PainelController.isLogado() == true){
 			String acao = req.getParameter("acao");
 			String categ = req.getParameter("categoria");
@@ -33,6 +34,7 @@ public class CategoriaController implements Logica {
 				if(acao.equals("inserir")){
 					dao.salva(ctg);
 					mensagem.setMessage("Categoria inserida com sucesso.");
+                                        req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("editar")){
 					dao.salva(ctg);
@@ -42,10 +44,13 @@ public class CategoriaController implements Logica {
 						req.setAttribute("categ", categoria);
 						req.setAttribute("link_acao", "/sistema?c=Categoria&acao=editar&id="+ctg.getId());
 					}
+                                        req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("excluir")){
 					dao.remove(ctg);
-					mensagem.setMessage("Categoria excuida com sucesso.");
+					mensagem.setMessage("Categoria excluida com sucesso.");
+                                        mensagem.setStyle("danger");
+                			req.setAttribute("mensagem", mensagem.getMessage());
 				}
 				else if(acao.equals("exibir")){
 					Categoria categoria = dao.retornaCategoria(ctg.getId());
@@ -57,12 +62,11 @@ public class CategoriaController implements Logica {
 				else{
 					mensagem.setMessage("Ação invalida.");
 					mensagem.setStyle("danger");
+                			req.setAttribute("mensagem", mensagem.getMessage());
 				}
-                                req.setAttribute("mensagem", mensagem.getMessage());
 			}
-			
-			
-			RequestDispatcher rd = req.getRequestDispatcher("/views/categoria/index.jsp");
+
+                        RequestDispatcher rd = req.getRequestDispatcher("/views/categoria/index.jsp");
 			rd.forward(req, res);
 		}else{
 			req.getSession().setAttribute("msg_erro", "Acesso restrito");
