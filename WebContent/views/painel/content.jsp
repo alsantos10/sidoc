@@ -151,7 +151,7 @@
 									<i class="fa fa-list-alt fa-5"></i>
 								</h4>
 							</div>
-							<p>Visualise os Relatórios do sistema.</p>
+							<p>Visualize os Relatórios do sistema.</p>
 							<a href="${menuRel}" title="Relatórios"
 								class="btn btn-action btn-block">Relatórios</a>
 						</div>

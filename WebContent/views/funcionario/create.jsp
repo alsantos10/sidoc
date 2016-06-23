@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:url value="/" var="urlHome" />
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cF"%>
+<c:url value="/" var="urlHome" />
 
 <!DOCTYPE html>
 <html lang="pt-BR">
